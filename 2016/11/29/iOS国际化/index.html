@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="几种情况1.随系统切换语言参考：iOS简单国际化的处理
+2.要求应用内切换，项目没怎么用storyboard参考：iOS应用内语言切换功能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS国际化">
+<meta property="og:url" content="http://yoursite.com/2016/11/29/iOS国际化/index.html">
+<meta property="og:site_name" content="iBiNCoder's blog">
+<meta property="og:description" content="几种情况1.随系统切换语言参考：iOS简单国际化的处理
+2.要求应用内切换，项目没怎么用storyboard参考：iOS应用内语言切换功能">
+<meta property="og:updated_time" content="2018-07-13T14:54:58.271Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS国际化">
+<meta name="twitter:description" content="几种情况1.随系统切换语言参考：iOS简单国际化的处理
+2.要求应用内切换，项目没怎么用storyboard参考：iOS应用内语言切换功能">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/29/iOS国际化/"/>
+
+
+
+
+
+  <title>iOS国际化 | iBiNCoder's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">iBiNCoder's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/29/iOS国际化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="iBiNCoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="iBiNCoder's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS国际化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-29T18:21:05+08:00">
+                2016-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="几种情况"><a href="#几种情况" class="headerlink" title="几种情况"></a>几种情况</h2><h3 id="1-随系统切换语言"><a href="#1-随系统切换语言" class="headerlink" title="1.随系统切换语言"></a>1.随系统切换语言</h3><p>参考：<a href="http://www.jianshu.com/p/7266444b7a14" target="_blank" rel="external">iOS简单国际化的处理</a></p>
+<h3 id="2-要求应用内切换，项目没怎么用storyboard"><a href="#2-要求应用内切换，项目没怎么用storyboard" class="headerlink" title="2.要求应用内切换，项目没怎么用storyboard"></a>2.要求应用内切换，项目没怎么用storyboard</h3><p>参考：<a href="http://www.jianshu.com/p/627da5a9992c" target="_blank" rel="external">iOS应用内语言切换功能</a></p>
+<a id="more"></a>
+<h3 id="3-应用内切换，并且大量用storyboard（此方法通用）"><a href="#3-应用内切换，并且大量用storyboard（此方法通用）" class="headerlink" title="3.应用内切换，并且大量用storyboard（此方法通用）"></a>3.应用内切换，并且大量用storyboard（此方法通用）</h3><p>参考：</p>
+<ul>
+<li><p><a href="http://www.jianshu.com/p/c7e8e999c8c7" target="_blank" rel="external">iOS App的国际化，以及App内的语言切换</a></p>
+</li>
+<li><p><a href="https://github.com/maximbilan/ios_language_manager/blob/master/README.md" target="_blank" rel="external">How to change localization internally in your iOS application</a></p>
+</li>
+<li><a href="http://blog.csdn.net/VictorMoKai/article/details/48894873" target="_blank" rel="external">iOS国际化</a></li>
+</ul>
+<blockquote>
+<ul>
+<li>思路大同小异，都用到了runtime的object_setClass及关联特性来切换bundle以达到切换语言的效果。</li>
+<li>只有这个比较特别：<br><a href="http://www.cnblogs.com/tangbinblog/p/3972318.html" target="_blank" rel="external">IOS APP 国际化 程序内切换语言实现 不重新启动系统（支持项目中stroyboard 、xib 混用。完美解决方案）</a>，但作者本人也觉得效率底下，也存在一些问题，暂放弃。推荐上面的三条解决方案。</li>
+<li>可是这样做完，发现第三方框架还不能适配多语言切换。解决的关键是找到第三方框架的localizedStringForKey:方法，利用runtime的方法交换、关联特性来达到切换第三方的bundle的效果</li>
+</ul>
+</blockquote>
+<p>以解决MJRefresh刷新框架的适配为例:</p>
+<blockquote>
+<p>找到里面的方法为：mj_localizedStringForKey</p>
+</blockquote>
+<p>关键代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"NSBundle+Language.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">&lt;NSBundle+MJRefresh.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span> kBundleKey = <span class="number">0</span>;</div><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span> kRefreshBundleKey = <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">BundleEx</span> : <span class="title">NSBundle</span></span></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">BundleEx</span></span></div><div class="line"></div><div class="line">- (<span class="built_in">NSString</span> *)localizedStringForKey:(<span class="built_in">NSString</span> *)key value:(<span class="built_in">NSString</span> *)value table:(<span class="built_in">NSString</span> *)tableName &#123;</div><div class="line">    <span class="built_in">NSBundle</span> *bundle = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;kBundleKey);</div><div class="line">    <span class="keyword">if</span> (bundle) &#123;</div><div class="line">        <span class="keyword">return</span> [bundle localizedStringForKey:key value:value table:tableName];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> [<span class="keyword">super</span> localizedStringForKey:key value:value table:tableName];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSBundle</span> (<span class="title">Language</span>)</span></div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    [<span class="keyword">super</span> load];</div><div class="line">    </div><div class="line">    <span class="comment">//适配MJRefresh多语言切换</span></div><div class="line">    Method fromMethod = class_getClassMethod([<span class="keyword">self</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(mj_localizedStringForKey:value:));</div><div class="line">    Method toMethod = class_getClassMethod([<span class="keyword">self</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(mj_dm_localizedStringForKey:value:));</div><div class="line">    </div><div class="line">    method_exchangeImplementations(fromMethod, toMethod);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)setRefreshBundle &#123;</div><div class="line">    <span class="built_in">NSArray</span> *langArr1 = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] valueForKey:<span class="string">@"AppleLanguages"</span>];</div><div class="line">    <span class="built_in">NSString</span> *language = langArr1.firstObject;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> ([language hasPrefix:<span class="string">@"en"</span>]) &#123;</div><div class="line">        language = <span class="string">@"en"</span>;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ([language hasPrefix:<span class="string">@"zh"</span>]) &#123;</div><div class="line">        language = <span class="string">@"zh-Hans"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">NSBundle</span> *refreshBundle = [<span class="built_in">NSBundle</span> bundleWithPath:[[<span class="built_in">NSBundle</span> mj_refreshBundle] pathForResource:language ofType:<span class="string">@"lproj"</span>]];</div><div class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp;kRefreshBundleKey, refreshBundle, OBJC_ASSOCIATION_RETAIN);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">NSBundle</span> *)refreshBundle &#123;</div><div class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;kRefreshBundleKey);</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="built_in">NSString</span> *)mj_dm_localizedStringForKey:(<span class="built_in">NSString</span> *)key value:(<span class="built_in">NSString</span> *)value &#123;</div><div class="line">    <span class="keyword">if</span> (![<span class="built_in">NSBundle</span> mainBundle].refreshBundle) &#123;</div><div class="line">        [[<span class="built_in">NSBundle</span> mainBundle] setRefreshBundle];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [[<span class="built_in">NSBundle</span> mainBundle].refreshBundle localizedStringForKey:key value:value table:<span class="literal">nil</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)setLanguage:(<span class="built_in">NSString</span> *)language &#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        object_setClass([<span class="built_in">NSBundle</span> mainBundle], [BundleEx <span class="keyword">class</span>]);</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">id</span> value = language ? [<span class="built_in">NSBundle</span> bundleWithPath:[[<span class="built_in">NSBundle</span> mainBundle] pathForResource:language ofType:<span class="string">@"lproj"</span>]] : <span class="literal">nil</span>;</div><div class="line">    objc_setAssociatedObject([<span class="built_in">NSBundle</span> mainBundle], &amp;kBundleKey, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</div><div class="line">    </div><div class="line">    [[<span class="built_in">NSBundle</span> mainBundle] setRefreshBundle];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>当然有些第三方比如ShareSDK、友盟分享等看不到源码，就实现不了应用内切换。必须自定义界面或者第三方开放接口。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/13/iOS-WKWebView/" rel="next" title="WKWebView小记">
+                <i class="fa fa-chevron-left"></i> WKWebView小记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/22/iOS-runtime/" rel="prev" title="runtime">
+                runtime <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">iBiNCoder</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#几种情况"><span class="nav-number">1.</span> <span class="nav-text">几种情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-随系统切换语言"><span class="nav-number">1.1.</span> <span class="nav-text">1.随系统切换语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-要求应用内切换，项目没怎么用storyboard"><span class="nav-number">1.2.</span> <span class="nav-text">2.要求应用内切换，项目没怎么用storyboard</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-应用内切换，并且大量用storyboard（此方法通用）"><span class="nav-number">1.3.</span> <span class="nav-text">3.应用内切换，并且大量用storyboard（此方法通用）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iBiNCoder</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

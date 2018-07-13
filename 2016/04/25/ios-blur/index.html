@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="实现技术概述：系统自带：
+
+CoreImage(很早苹果就提供的滤镜效果，缺点是此方法效率低且需要转化相对时间比较长)
+UIBlurEffect(iOS8以后出现的，苹果自带的毛玻璃效果，效率比上面的要好，缺点就是只能iOS8以上使用，不能自由设置效果)
+vImage(苹果提供了一个庞大的库，更复杂的模糊的效果，效率也最高)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS模糊">
+<meta property="og:url" content="http://yoursite.com/2016/04/25/ios-blur/index.html">
+<meta property="og:site_name" content="iBiNCoder's blog">
+<meta property="og:description" content="实现技术概述：系统自带：
+
+CoreImage(很早苹果就提供的滤镜效果，缺点是此方法效率低且需要转化相对时间比较长)
+UIBlurEffect(iOS8以后出现的，苹果自带的毛玻璃效果，效率比上面的要好，缺点就是只能iOS8以上使用，不能自由设置效果)
+vImage(苹果提供了一个庞大的库，更复杂的模糊的效果，效率也最高)">
+<meta property="og:updated_time" content="2017-02-25T04:19:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS模糊">
+<meta name="twitter:description" content="实现技术概述：系统自带：
+
+CoreImage(很早苹果就提供的滤镜效果，缺点是此方法效率低且需要转化相对时间比较长)
+UIBlurEffect(iOS8以后出现的，苹果自带的毛玻璃效果，效率比上面的要好，缺点就是只能iOS8以上使用，不能自由设置效果)
+vImage(苹果提供了一个庞大的库，更复杂的模糊的效果，效率也最高)">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/04/25/ios-blur/"/>
+
+
+
+
+
+  <title>iOS模糊 | iBiNCoder's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">iBiNCoder's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/25/ios-blur/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="iBiNCoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="iBiNCoder's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS模糊</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-25T22:51:37+08:00">
+                2016-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="实现技术概述："><a href="#实现技术概述：" class="headerlink" title="实现技术概述："></a>实现技术概述：</h2><h3 id="系统自带："><a href="#系统自带：" class="headerlink" title="系统自带："></a>系统自带：</h3><blockquote>
+<ul>
+<li>CoreImage(很早苹果就提供的滤镜效果，缺点是此方法效率低且需要转化相对时间比较长)</li>
+<li>UIBlurEffect(iOS8以后出现的，苹果自带的毛玻璃效果，效率比上面的要好，缺点就是只能iOS8以上使用，不能自由设置效果)</li>
+<li>vImage(苹果提供了一个庞大的库，更复杂的模糊的效果，效率也最高)</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h3 id="第三方："><a href="#第三方：" class="headerlink" title="第三方："></a>第三方：</h3><blockquote>
+<ul>
+<li>GPUImage（第三方大神写的框架，效率与效果也不错，不过貌似有模糊图片返回为空的bug)，参考下面的issues<br><a href="https://github.com/BradLarson/GPUImage/issues/1522/" target="_blank" rel="external">https://github.com/BradLarson/GPUImage/issues/1522/</a></li>
+</ul>
+</blockquote>
+<h2 id="具体："><a href="#具体：" class="headerlink" title="具体："></a>具体：</h2><h3 id="1-CoreImage"><a href="#1-CoreImage" class="headerlink" title="1.CoreImage"></a>1.CoreImage</h3><blockquote>
+<p>iOS5.0之后就出现了CoreImage的API。存在于CoreImage.framework中，在iOS和OS X平台，都有大量滤镜；按照官方文档记载，在OS X上有120多种Filter，而在iOS上也有90种之多。<br>CoreImage的Filter是按字符串的名字创建的，比如高斯模糊滤镜就是“CIGaussianBlur”，参考<a href="https://developer.apple.com/library/content/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html#//apple_ref/doc/filter/ci/CIGaussianBlur" target="_blank" rel="external">官方列表</a><br>除了多种Filter之外，CoreImage还提供了CIDetector等类，可以支持人脸识别等，这里不展开说了。</p>
+</blockquote>
+<h4 id="示例代码："><a href="#示例代码：" class="headerlink" title="示例代码："></a>示例代码：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">UIImage</span> *)coreBlurImage:(<span class="built_in">UIImage</span> *)image withBlurNumber:(<span class="built_in">CGFloat</span>)blur &#123;</div><div class="line">    <span class="built_in">CIContext</span> *context = [<span class="built_in">CIContext</span> contextWithOptions:<span class="literal">nil</span>];</div><div class="line">    <span class="built_in">CIImage</span> *inputImage = [<span class="built_in">CIImage</span> imageWithCGImage:image.CGImage];</div><div class="line">    <span class="comment">//滤镜filter</span></div><div class="line">    <span class="built_in">CIFilter</span> *filter = [<span class="built_in">CIFilter</span> filterWithName:<span class="string">@"CIGaussianBlur"</span>];</div><div class="line">    [filter setValue:inputImage forKey:kCIInputImageKey];</div><div class="line">    [filter setValue:@(blur) forKey:<span class="string">@"inputRadius"</span>];</div><div class="line">    <span class="comment">//模糊Image</span></div><div class="line">    <span class="built_in">CIImage</span> *result = [filter valueForKey:kCIOutputImageKey];</div><div class="line">    <span class="built_in">CGImageRef</span> outImage = [context createCGImage:result fromRect:[result extent]];</div><div class="line">    <span class="built_in">UIImage</span> *blurImage = [<span class="built_in">UIImage</span> imageWithCGImage:outImage];</div><div class="line">    <span class="built_in">CGImageRelease</span>(outImage);</div><div class="line">    <span class="keyword">return</span> blurImage;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-UIBlurEffect"><a href="#2-UIBlurEffect" class="headerlink" title="2.UIBlurEffect"></a>2.UIBlurEffect</h3><blockquote>
+<p>在iOS7.0(包括)之前还是有系统的类可以实现毛玻璃效果的, 就是 UIToolbar:</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">iOS7<span class="number">.0</span></div><div class="line">毛玻璃的样式:</div><div class="line"><span class="built_in">UIBarStyleDefault</span>          = <span class="number">0</span>,</div><div class="line"><span class="built_in">UIBarStyleBlack</span>            = <span class="number">1</span>,</div><div class="line"><span class="built_in">UIBarStyleBlackOpaque</span>      = <span class="number">1</span>, <span class="comment">// Deprecated. Use 	UIBarStyleBlack</span></div><div class="line"><span class="built_in">UIBarStyleBlackTranslucent</span> = <span class="number">2</span>, <span class="comment">// Deprecated. Use 	UIBarStyleBlack and set the translucent property 	to YES</span></div><div class="line"></div><div class="line"><span class="built_in">UIImageView</span> *bgImgView = [[<span class="built_in">UIImageView</span> alloc] initWithFrame:<span class="keyword">self</span>.view.bounds];</div><div class="line">bgImgView.image = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"xxx.jpg"</span>];</div><div class="line">[<span class="keyword">self</span>.view addSubview:bgImgView];</div><div class="line"></div><div class="line"><span class="built_in">UIToolbar</span> *toolbar = [[<span class="built_in">UIToolbar</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, bgImgView.frame.size.width * <span class="number">0.5</span>, bgImgView.frame.size.height)];</div><div class="line">toolbar.barStyle = <span class="built_in">UIBarStyleBlackTranslucent</span>;</div><div class="line">[bgImgView addSubview:toolbar];</div></pre></td></tr></table></figure>
+<blockquote>
+<p>iOS8.0之后,苹果新增了一个类UIVisualEffectView,通过这个类来实现毛玻璃效果与上面的UIToolbar一样,效率很高,使用简单。UIVisualEffectView是一个抽象类,不能直接使用,需通过三个子类来实现(UIBlurEffect, UIVisualEffevt, UIVisualEffectView);</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">iOS8<span class="number">.0</span></div><div class="line">毛玻璃的样式:</div><div class="line"><span class="built_in">UIBlurEffectStyleExtraLight</span>,</div><div class="line"><span class="built_in">UIBlurEffectStyleLight</span>,</div><div class="line"><span class="built_in">UIBlurEffectStyleDark</span></div><div class="line"></div><div class="line"><span class="built_in">UIBlurEffect</span> *effect = [<span class="built_in">UIBlurEffect</span> effectWithStyle:<span class="built_in">UIBlurEffectStyleDark</span>];</div><div class="line"><span class="built_in">UIVisualEffectView</span> *effectView = [[<span class="built_in">UIVisualEffectView</span> alloc] initWithEffect:effect];</div><div class="line">effectView.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, bgImgView.frame.size.width * <span class="number">0.5</span>, bgImgView.frame.size.height);</div><div class="line">[bgImgView addSubview:effectView];</div></pre></td></tr></table></figure>
+<h3 id="3-vImage"><a href="#3-vImage" class="headerlink" title="3.vImage"></a>3.vImage</h3><blockquote>
+<p>vImage属于Accelerate.Framework。Accelerate.Framework库主要用来做数字信号处理、图像处理相关的向量、矩阵运算。图像可以认为是由向量或者矩阵数据构成的，Accelerate里提供了高效的数学运算API，能方便我们对图像做各种各样的处理。这里模糊算法使用的是vImageBoxConvolve_ARGB8888函数。</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">UIImage</span> *)boxblurImage:(<span class="built_in">UIImage</span> *)image withBlurNumber:(<span class="built_in">CGFloat</span>)blur &#123;</div><div class="line">    <span class="keyword">int</span> boxSize = (<span class="keyword">int</span>)(blur * <span class="number">40</span>);</div><div class="line">    boxSize = boxSize - (boxSize % <span class="number">2</span>) + <span class="number">1</span>;</div><div class="line">    <span class="built_in">CGImageRef</span> img = image.CGImage;</div><div class="line">    vImage_Buffer inBuffer, outBuffer;</div><div class="line">    vImage_Error error;</div><div class="line">    <span class="keyword">void</span> *pixelBuffer;</div><div class="line">    <span class="comment">//从CGImage中获取数据</span></div><div class="line">    <span class="built_in">CGDataProviderRef</span> inProvider = <span class="built_in">CGImageGetDataProvider</span>(img);</div><div class="line">    <span class="built_in">CFDataRef</span> inBitmapData = <span class="built_in">CGDataProviderCopyData</span>(inProvider);</div><div class="line">    <span class="comment">//设置从CGImage获取对象的属性</span></div><div class="line">    inBuffer.width = <span class="built_in">CGImageGetWidth</span>(img);</div><div class="line">    inBuffer.height = <span class="built_in">CGImageGetHeight</span>(img);</div><div class="line">    inBuffer.rowBytes = <span class="built_in">CGImageGetBytesPerRow</span>(img);</div><div class="line">    inBuffer.data = (<span class="keyword">void</span>*)<span class="built_in">CFDataGetBytePtr</span>(inBitmapData);</div><div class="line">    pixelBuffer = malloc(<span class="built_in">CGImageGetBytesPerRow</span>(img) * <span class="built_in">CGImageGetHeight</span>(img));</div><div class="line">    <span class="keyword">if</span>(pixelBuffer == <span class="literal">NULL</span>)</div><div class="line">        DMLog(<span class="string">@"No pixelbuffer"</span>);</div><div class="line">    outBuffer.data = pixelBuffer;</div><div class="line">    outBuffer.width = <span class="built_in">CGImageGetWidth</span>(img);</div><div class="line">    outBuffer.height = <span class="built_in">CGImageGetHeight</span>(img);</div><div class="line">    outBuffer.rowBytes = <span class="built_in">CGImageGetBytesPerRow</span>(img);</div><div class="line">    error = vImageBoxConvolve_ARGB8888(&amp;inBuffer, &amp;outBuffer, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>, 	boxSize, boxSize, <span class="literal">NULL</span>, kvImageEdgeExtend);</div><div class="line">    <span class="keyword">if</span> (error) &#123;</div><div class="line">        DMLog(<span class="string">@"error from convolution %ld"</span>, error);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">CGColorSpaceRef</span> colorSpace = <span class="built_in">CGColorSpaceCreateDeviceRGB</span>();</div><div class="line">    <span class="built_in">CGContextRef</span> ctx = <span class="built_in">CGBitmapContextCreate</span>( outBuffer.data, outBuffer.width, outBuffer.height, <span class="number">8</span>, outBuffer.rowBytes, colorSpace, kCGImageAlphaNoneSkipLast);</div><div class="line">    <span class="built_in">CGImageRef</span> imageRef = <span class="built_in">CGBitmapContextCreateImage</span> (ctx);</div><div class="line">    <span class="built_in">UIImage</span> *returnImage = [<span class="built_in">UIImage</span> imageWithCGImage:imageRef];</div><div class="line">    <span class="comment">//clean up CGContextRelease(ctx);</span></div><div class="line">    <span class="built_in">CGColorSpaceRelease</span>(colorSpace);</div><div class="line">    free(pixelBuffer);</div><div class="line">    <span class="built_in">CFRelease</span>(inBitmapData);</div><div class="line">    <span class="built_in">CGColorSpaceRelease</span>(colorSpace);</div><div class="line">    <span class="built_in">CGImageRelease</span>(imageRef);</div><div class="line">    <span class="keyword">return</span> returnImage;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>使用（设置blur参数的大小调节需要的模糊程度）：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIImageView</span> *imageView = [[<span class="built_in">UIImageView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">300</span>, SCREENWIDTH, <span class="number">100</span>)]; </div><div class="line">imageView.contentMode = <span class="built_in">UIViewContentModeScaleAspectFill</span>;</div><div class="line">imageView.image = [<span class="built_in">UIImage</span> boxblurImage:image withBlurNumber:<span class="number">0.5</span>]; </div><div class="line">imageView.clipsToBounds = <span class="literal">YES</span>;</div><div class="line">[<span class="keyword">self</span>.view addSubview:imageView];</div></pre></td></tr></table></figure>
+<h3 id="4-GPUImage"><a href="#4-GPUImage" class="headerlink" title="4.GPUImage"></a>4.GPUImage</h3><blockquote>
+<p>里面同样提供了很多Filter，使用也简单，比如高斯模糊：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">DM_WS(weakSelf)</div><div class="line"><span class="built_in">NSOperationQueue</span> *queue = [[<span class="built_in">NSOperationQueue</span> alloc] init];</div><div class="line">[queue addOperationWithBlock:^&#123;</div><div class="line">    GPUImageGaussianBlurFilter *filter = [[GPUImageGaussianBlurFilter alloc] init];</div><div class="line">    filter.texelSpacingMultiplier = <span class="number">1.5</span>;</div><div class="line">    filter.blurRadiusInPixels = <span class="number">50.0</span>;</div><div class="line">    [filter forceProcessingAtSize:image.size];</div><div class="line">    GPUImagePicture *pic = [[GPUImagePicture alloc] initWithImage:image];</div><div class="line">    [pic addTarget:filter];</div><div class="line">    [pic processImage];</div><div class="line">    [filter useNextFrameForImageCapture];</div><div class="line">    <span class="built_in">UIImage</span> *newImage = [filter imageFromCurrentFramebuffer];</div><div class="line">    [[<span class="built_in">NSOperationQueue</span> mainQueue] addOperationWithBlock:^&#123;</div><div class="line">        weakSelf.image = newImage;</div><div class="line">    &#125;];</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<blockquote>
+<p>因为相对来说比较耗时，所以先在子线程中处理模糊，主线程更新UI；但本人使用时发现有bug，UIImage *newImage = [filter imageFromCurrentFramebuffer]中newImage有时候可能返回为空，前文也已经提出。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>CoreImage模糊之后会在图片周围产生白边，用起来较麻烦，还要知道Filter的名字。</li>
+<li>GPUImage来自第三方，源代码开放，用起来简单，效率还可以，但可能不稳定。</li>
+<li>UIBlurEffect效果较少，不能调模糊程度，看自己需求使用。</li>
+<li>vImage 效果丰富，性能也最高。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/10/iOS内购/" rel="next" title="iOS内购及一些要注意的坑">
+                <i class="fa fa-chevron-left"></i> iOS内购及一些要注意的坑
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/18/iOS-AVFoundation/" rel="prev" title="AVFoundation概述">
+                AVFoundation概述 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">iBiNCoder</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现技术概述："><span class="nav-number">1.</span> <span class="nav-text">实现技术概述：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统自带："><span class="nav-number">1.1.</span> <span class="nav-text">系统自带：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三方："><span class="nav-number">1.2.</span> <span class="nav-text">第三方：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体："><span class="nav-number">2.</span> <span class="nav-text">具体：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-CoreImage"><span class="nav-number">2.1.</span> <span class="nav-text">1.CoreImage</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#示例代码："><span class="nav-number">2.1.1.</span> <span class="nav-text">示例代码：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-UIBlurEffect"><span class="nav-number">2.2.</span> <span class="nav-text">2.UIBlurEffect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-vImage"><span class="nav-number">2.3.</span> <span class="nav-text">3.vImage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-GPUImage"><span class="nav-number">2.4.</span> <span class="nav-text">4.GPUImage</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iBiNCoder</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

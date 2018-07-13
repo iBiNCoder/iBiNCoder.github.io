@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简单初始化
+1.首先：
+
+1#import &amp;lt;WebKit/WebKit.h&amp;gt;
+
+2.初始化方法有两种：
+
+12345 // 默认初始化- (instancetype)initWithFrame:(CGRect)frame;// 根据对webview的相关配置，进行初始化- (instancetype)initWithFrame:(CGRect)frame configuration">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WKWebView小记">
+<meta property="og:url" content="http://yoursite.com/2016/08/13/iOS-WKWebView/index.html">
+<meta property="og:site_name" content="iBiNCoder's blog">
+<meta property="og:description" content="简单初始化
+1.首先：
+
+1#import &amp;lt;WebKit/WebKit.h&amp;gt;
+
+2.初始化方法有两种：
+
+12345 // 默认初始化- (instancetype)initWithFrame:(CGRect)frame;// 根据对webview的相关配置，进行初始化- (instancetype)initWithFrame:(CGRect)frame configuration">
+<meta property="og:updated_time" content="2018-07-13T13:57:45.283Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WKWebView小记">
+<meta name="twitter:description" content="简单初始化
+1.首先：
+
+1#import &amp;lt;WebKit/WebKit.h&amp;gt;
+
+2.初始化方法有两种：
+
+12345 // 默认初始化- (instancetype)initWithFrame:(CGRect)frame;// 根据对webview的相关配置，进行初始化- (instancetype)initWithFrame:(CGRect)frame configuration">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/13/iOS-WKWebView/"/>
+
+
+
+
+
+  <title>WKWebView小记 | iBiNCoder's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">iBiNCoder's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/13/iOS-WKWebView/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="iBiNCoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="iBiNCoder's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">WKWebView小记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-13T10:30:21+08:00">
+                2016-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h1 id="简单初始化"><a href="#简单初始化" class="headerlink" title="简单初始化"></a>简单初始化</h1><ul>
+<li>1.首先：</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;WebKit/WebKit.h&gt;</span></span></div></pre></td></tr></table></figure>
+<ul>
+<li>2.初始化方法有两种：</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">// 默认初始化</span></div><div class="line">- (<span class="keyword">instancetype</span>)initWithFrame:(<span class="built_in">CGRect</span>)frame;</div><div class="line"></div><div class="line"><span class="comment">// 根据对webview的相关配置，进行初始化</span></div><div class="line">- (<span class="keyword">instancetype</span>)initWithFrame:(<span class="built_in">CGRect</span>)frame configuration:(<span class="built_in">WKWebViewConfiguration</span> *)configuration <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</div></pre></td></tr></table></figure>
+<ul>
+<li>3.加载网页方式与UIWebView相同，代码如下：</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">WKWebView</span> *webView = [[<span class="built_in">WKWebView</span> alloc] initWithFrame:<span class="keyword">self</span>.view.bounds];</div><div class="line">[webView loadRequest:[<span class="built_in">NSURLRequest</span> requestWithURL:[<span class="built_in">NSURL</span> URLWithString:<span class="string">@"http://www.baidu.com"</span>]]];</div><div class="line">[<span class="keyword">self</span>.view addSubview:webView];</div></pre></td></tr></table></figure>
+<hr>
+<a id="more"></a>
+<h1 id="WKWebViewConfiguration"><a href="#WKWebViewConfiguration" class="headerlink" title="WKWebViewConfiguration"></a>WKWebViewConfiguration</h1><h3 id="概述：用来初始化web视图的属性集合。"><a href="#概述：用来初始化web视图的属性集合。" class="headerlink" title="概述：用来初始化web视图的属性集合。"></a>概述：用来初始化web视图的属性集合。</h3><blockquote>
+<ul>
+<li>WKWebView的第一个属性configuration就是属于WKWebViewConfiguration类</li>
+<li>使用WKWebViewConfiguration类,您可以确定多久呈现一个网页,如何处理媒体播放,用户可以选择的产品的粒度,以及许多其他的选择。WKWebViewConfiguration在web视图初始化时只使用一次。你不能使用这个类来改变已经创建后的web视图的配置。</li>
+<li>此方法初始化WKWebView的配置:</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">instancetype</span>)initWithFrame:(<span class="built_in">CGRect</span>)frame configuration:(<span class="built_in">WKWebViewConfiguration</span> *)configuration</div></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="属性："><a href="#属性：" class="headerlink" title="属性："></a>属性：</h3><blockquote>
+<h5 id="1-processPool（不需要设置）"><a href="#1-processPool（不需要设置）" class="headerlink" title="1.processPool（不需要设置）"></a>1.processPool（不需要设置）</h5><ul>
+<li>获取视图的web内容的过程的“进程池”。当一个web视图初始化时,一个新的web内容进程将从“指定池”创建,或现有的池中存在的进程将被使用。</li>
+<li>WKProcessPool对象代表一个web内容的加载池。与web视图相关的进程池是由其web视图配置指定的。除非过程被限制，每个web视图都有自己的web内容加载进程;之后,相同的进程池中的web视图停止共享web内容的进程。</li>
+</ul>
+<h5 id="2-preferences"><a href="#2-preferences" class="headerlink" title="2.preferences"></a>2.preferences</h5><ul>
+<li>webview 的偏好设置</li>
+</ul>
+<h5 id="3-userContentController"><a href="#3-userContentController" class="headerlink" title="3.userContentController"></a>3.userContentController</h5><ul>
+<li>与webView关联的用户内容视图（是用于给JS注入对象的，注入对象后，JS端就可以发送数据给iOS端）</li>
+</ul>
+<h5 id="4-websiteDataStore"><a href="#4-websiteDataStore" class="headerlink" title="4.websiteDataStore"></a>4.websiteDataStore</h5><ul>
+<li>存储的Web内容</li>
+</ul>
+<h5 id="5-suppressesIncrementalRendering"><a href="#5-suppressesIncrementalRendering" class="headerlink" title="5.suppressesIncrementalRendering"></a>5.suppressesIncrementalRendering</h5><ul>
+<li>一个布尔值,指示是否抑制网络视图内容呈现,直到它完全被加载到内存中(默认NO)</li>
+</ul>
+<h5 id="6-applicationNameForUserAgent"><a href="#6-applicationNameForUserAgent" class="headerlink" title="6.applicationNameForUserAgent"></a>6.applicationNameForUserAgent</h5><ul>
+<li>应用程序的名称中使用的用户代理字符串</li>
+</ul>
+<h5 id="7-allowsAirPlayForMediaPlayback"><a href="#7-allowsAirPlayForMediaPlayback" class="headerlink" title="7.allowsAirPlayForMediaPlayback"></a>7.allowsAirPlayForMediaPlayback</h5><ul>
+<li>决定是否允许AirPaly（默认YES）</li>
+</ul>
+<h5 id="8-mediaTypesRequiringUserActionForPlayback"><a href="#8-mediaTypesRequiringUserActionForPlayback" class="headerlink" title="8.mediaTypesRequiringUserActionForPlayback"></a>8.mediaTypesRequiringUserActionForPlayback</h5><h5 id="9-allowsInlineMediaPlayback"><a href="#9-allowsInlineMediaPlayback" class="headerlink" title="9.allowsInlineMediaPlayback"></a>9.allowsInlineMediaPlayback</h5><ul>
+<li>决定HTML5视频默认是网页内播放（YES），还是原生的全屏播放器播放（NO）</li>
+</ul>
+<h5 id="10-selectionGranularity"><a href="#10-selectionGranularity" class="headerlink" title="10.selectionGranularity"></a>10.selectionGranularity</h5><ul>
+<li>用户选择粒度</li>
+</ul>
+<h5 id="11-allowsPictureInPictureMediaPlayback"><a href="#11-allowsPictureInPictureMediaPlayback" class="headerlink" title="11.allowsPictureInPictureMediaPlayback"></a>11.allowsPictureInPictureMediaPlayback</h5><ul>
+<li>决定HTML5视频是否支持画中画播放</li>
+</ul>
+<h5 id="12-dataDetectorTypes"><a href="#12-dataDetectorTypes" class="headerlink" title="12.dataDetectorTypes"></a>12.dataDetectorTypes</h5><ul>
+<li>所需检测的数据类型的枚举值</li>
+</ul>
+<h5 id="13-ignoresViewportScaleLimits"><a href="#13-ignoresViewportScaleLimits" class="headerlink" title="13.ignoresViewportScaleLimits"></a>13.ignoresViewportScaleLimits</h5><ul>
+<li>覆盖user-scalable属性，以决定WKWebView是否始终能够缩放web页面</li>
+</ul>
+<h5 id="14-userInterfaceDirectionPolicy"><a href="#14-userInterfaceDirectionPolicy" class="headerlink" title="14.userInterfaceDirectionPolicy"></a>14.userInterfaceDirectionPolicy</h5></blockquote>
+<h3 id="示例代码："><a href="#示例代码：" class="headerlink" title="示例代码："></a>示例代码：</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">WKWebViewConfiguration</span> *configuartion = [<span class="built_in">WKWebViewConfiguration</span> new];</div><div class="line">configuartion.userContentController = [<span class="built_in">WKUserContentController</span> new];</div><div class="line">configuartion.allowsInlineMediaPlayback = <span class="literal">YES</span>;<span class="comment">//允许网页内播放</span></div><div class="line"><span class="built_in">WKWebView</span> *webView = [[<span class="built_in">WKWebView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, ScreenWidth, ScreenHeight - <span class="number">64</span>) configuration:configuartion];</div><div class="line">[webView loadRequest:[<span class="built_in">NSURLRequest</span> requestWithURL:[<span class="built_in">NSURL</span> URLWithString:[url stringByAddingPercentEscapesUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>]]</div><div class="line">                                      cachePolicy:<span class="built_in">NSURLRequestUseProtocolCachePolicy</span></div><div class="line">                                  timeoutInterval:DISPATCH_TIME_FOREVER]];</div><div class="line"></div><div class="line">webView.navigationDelegate = <span class="keyword">self</span>;</div><div class="line"><span class="keyword">self</span>.webView = webView;</div><div class="line">[<span class="keyword">self</span>.view addSubview:webView];</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="监听加载状态、处理跳转、WKNavigationDelegate"><a href="#监听加载状态、处理跳转、WKNavigationDelegate" class="headerlink" title="监听加载状态、处理跳转、WKNavigationDelegate"></a>监听加载状态、处理跳转、WKNavigationDelegate</h1><ul>
+<li>WKWebView 的一些属性如estimatedProgress和title 等都是KVO模式,可以添加监控;</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[webView addObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"estimatedProgress"</span> options:<span class="built_in">NSKeyValueObservingOptionNew</span> context:<span class="literal">NULL</span>];</div><div class="line">[webView addObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"title"</span> options:<span class="built_in">NSKeyValueObservingOptionNew</span> context:<span class="literal">NULL</span>];</div><div class="line"><span class="comment">//监控实现</span></div><div class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span> *)change context:(<span class="keyword">void</span> *)context &#123;</div><div class="line">    <span class="keyword">if</span> ([keyPath isEqualToString:<span class="string">@"estimatedProgress"</span>]) &#123;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ([keyPath isEqualToString:<span class="string">@"title"</span>]) &#123;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//移除监控</span></div><div class="line">[webView removeObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"estimatedProgress"</span>];</div><div class="line">[webView removeObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"title"</span>];</div></pre></td></tr></table></figure>
+<ul>
+<li>其他KVO属性:URL, loading, hasOnlySecureContent, serverTrust, canGoBack, canGoForward</li>
+<li>WKNavigationDelegate（导航代理）监听网页状态,处理跳转：</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">webView.navigationDelegate = <span class="keyword">self</span>;</div><div class="line"></div><div class="line"><span class="meta">#pragma mark - WKNavigationDelegate</span></div><div class="line"><span class="comment">// 页面开始加载时调用</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView didStartProvisionalNavigation:(<span class="built_in">WKNavigation</span> *)navigation &#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// 当内容开始返回时调用</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView didCommitNavigation:(<span class="built_in">WKNavigation</span> *)navigation &#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// 页面加载完成之后调用</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView didFinishNavigation:(<span class="built_in">WKNavigation</span> *)navigation &#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// 页面加载失败时调用</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView didFailProvisionalNavigation:(<span class="built_in">WKNavigation</span> *)navigation &#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// 接收到服务器跳转请求之后调用</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView didReceiveServerRedirectForProvisionalNavigation:(<span class="built_in">WKNavigation</span> *)navigation &#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// 在收到响应后，决定是否跳转</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView decidePolicyForNavigationResponse:(<span class="built_in">WKNavigationResponse</span> *)navigationResponse decisionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">WKNavigationResponsePolicy</span>))decisionHandler &#123;</div><div class="line">	<span class="comment">//允许跳转</span></div><div class="line">    decisionHandler(<span class="built_in">WKNavigationResponsePolicyAllow</span>);</div><div class="line">    <span class="comment">//不允许跳转</span></div><div class="line">    <span class="comment">//decisionHandler(WKNavigationResponsePolicyCancel);</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 在发送请求之前，决定是否跳转</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView decidePolicyForNavigationAction:(<span class="built_in">WKNavigationAction</span> *)navigationAction decisionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">WKNavigationActionPolicy</span>))decisionHandler &#123;</div><div class="line">    <span class="comment">//下面代码处理如果是跳转一个新页面（继续加载新页面，解决点击链接无反应问题）</span></div><div class="line">    <span class="keyword">if</span> (navigationAction.targetFrame == <span class="literal">nil</span>) &#123;</div><div class="line">        [webView loadRequest:navigationAction.request];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//允许跳转</span></div><div class="line">    decisionHandler(<span class="built_in">WKNavigationActionPolicyAllow</span>);</div><div class="line">    <span class="comment">//不允许跳转</span></div><div class="line">    <span class="comment">//decisionHandler(WKNavigationActionPolicyCancel);</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 这与用于授权验证的API，与AFN、UIWebView的授权验证API是一样的</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webViewdidReceiveAuthenticationChallenge:(<span class="built_in">NSURLAuthenticationChallenge</span> *)challengecompletionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">NSURLSessionAuthChallengeDisposition</span> disposition, <span class="built_in">NSURLCredential</span> *__nullablecredential))completionHandler;</div><div class="line"></div><div class="line"><span class="comment">// 当web content处理完成时，会回调</span></div><div class="line">- (<span class="keyword">void</span>)webViewWebContentProcessDidTerminate:(<span class="built_in">WKWebView</span> *)webViewNS_AVAILABLE(<span class="number">10</span>_11, <span class="number">9</span>_0);</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="WKUIDelegate"><a href="#WKUIDelegate" class="headerlink" title="WKUIDelegate"></a>WKUIDelegate</h1><blockquote>
+<p>UI界面相关，原生控件支持，三种提示框：输入、确认、警告。首先将web提示框拦截然后再做处理。</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - WKUIDelegate</span></div><div class="line"><span class="comment">// 创建一个新的WebView</span></div><div class="line">- (<span class="built_in">WKWebView</span> *)webView:(<span class="built_in">WKWebView</span> *)webView createWebViewWithConfiguration:(<span class="built_in">WKWebViewConfiguration</span> *)configuration forNavigationAction:(<span class="built_in">WKNavigationAction</span> *)navigationAction windowFeatures:(<span class="built_in">WKWindowFeatures</span> *)windowFeatures&#123;</div><div class="line">    <span class="keyword">return</span> [[<span class="built_in">WKWebView</span> alloc]init];</div><div class="line">&#125;</div><div class="line"><span class="comment">// 输入框</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView runJavaScriptTextInputPanelWithPrompt:(<span class="built_in">NSString</span> *)prompt defaultText:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)defaultText initiatedByFrame:(<span class="built_in">WKFrameInfo</span> *)frame completionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">NSString</span> * __<span class="keyword">nullable</span> result))completionHandler&#123;</div><div class="line">    completionHandler(<span class="string">@"http"</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">// 确认框</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView runJavaScriptConfirmPanelWithMessage:(<span class="built_in">NSString</span> *)message initiatedByFrame:(<span class="built_in">WKFrameInfo</span> *)frame completionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">BOOL</span> result))completionHandler&#123;</div><div class="line">    completionHandler(<span class="literal">YES</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">// 警告框</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView runJavaScriptAlertPanelWithMessage:(<span class="built_in">NSString</span> *)message initiatedByFrame:(<span class="built_in">WKFrameInfo</span> *)frame completionHandler:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))completionHandler&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,message);</div><div class="line">    completionHandler();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><h2 id="WKWebView的头文件声明"><a href="#WKWebView的头文件声明" class="headerlink" title="WKWebView的头文件声明"></a>WKWebView的头文件声明</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// webview 配置，上面已说</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">WKWebViewConfiguration</span> *configuration;</div><div class="line"> </div><div class="line"><span class="comment">// 导航代理</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">id</span> &lt;<span class="built_in">WKNavigationDelegate</span>&gt; navigationDelegate;</div><div class="line"> </div><div class="line"><span class="comment">// 用户交互代理</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">id</span> &lt;<span class="built_in">WKUIDelegate</span>&gt; <span class="built_in">UIDelegate</span>;</div><div class="line"> </div><div class="line"><span class="comment">// 页面前进、后退列表</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">WKBackForwardList</span> *backForwardList;</div><div class="line"> </div><div class="line"><span class="comment">// 默认构造器</span></div><div class="line">- (<span class="keyword">instancetype</span>)initWithFrame:(<span class="built_in">CGRect</span>)frameconfiguration:(<span class="built_in">WKWebViewConfiguration</span> *)configurationNS_DESIGNATED_INITIALIZER;</div><div class="line"> </div><div class="line"><span class="comment">// 已不再使用</span></div><div class="line">- (<span class="keyword">instancetype</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)coderNS_UNAVAILABLE;</div><div class="line"> </div><div class="line"><span class="comment">// 与UIWebView一样的加载请求API</span></div><div class="line">- (nullableWKNavigation *)loadRequest:(<span class="built_in">NSURLRequest</span> *)request;</div><div class="line"> </div><div class="line"><span class="comment">// 加载URL文件</span></div><div class="line">- (nullableWKNavigation *)loadFileURL:(<span class="built_in">NSURL</span> *)URL allowingReadAccessToURL:(<span class="built_in">NSURL</span> *)readAccessURLNS_AVAILABLE(<span class="number">10</span>_11, <span class="number">9</span>_0);</div><div class="line"> </div><div class="line"><span class="comment">// 直接加载HTML</span></div><div class="line">- (nullableWKNavigation *)loadHTMLString:(<span class="built_in">NSString</span> *)string baseURL:(nullableNSURL *)baseURL;</div><div class="line"> </div><div class="line"><span class="comment">// 直接加载data</span></div><div class="line">- (nullableWKNavigation *)loadData:(<span class="built_in">NSData</span> *)data MIMEType:(<span class="built_in">NSString</span> *)MIMEType characterEncodingName:(<span class="built_in">NSString</span> *)characterEncodingName baseURL:(<span class="built_in">NSURL</span> *)baseURL <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_11, <span class="number">9</span>_0);</div><div class="line"> </div><div class="line"><span class="comment">// 前进或者后退到某一页面</span></div><div class="line">- (nullableWKNavigation *)goToBackForwardListItem:(<span class="built_in">WKBackForwardListItem</span> *)item;</div><div class="line"> </div><div class="line"><span class="comment">// 页面的标题，支持KVO的</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *title;</div><div class="line"> </div><div class="line"><span class="comment">// 当前请求的URL，支持KVO的</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSURL</span> *URL;</div><div class="line"> </div><div class="line"><span class="comment">// 标识当前是否正在加载内容中，支持KVO的</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">getter</span>=isLoading) <span class="built_in">BOOL</span> loading;</div><div class="line"> </div><div class="line"><span class="comment">// 当前加载的进度，范围为[0, 1]</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="keyword">double</span> estimatedProgress;</div><div class="line"> </div><div class="line"><span class="comment">// 标识页面中的所有资源是否通过安全加密连接来加载，支持KVO的</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">BOOL</span> hasOnlySecureContent;</div><div class="line"> </div><div class="line"><span class="comment">// 当前导航的证书，支持KVO</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">nullable</span>) SecTrustRef serverTrust API_AVAILABLE(macosx(<span class="number">10.12</span>), ios(<span class="number">10.0</span>));</div><div class="line"> </div><div class="line"><span class="comment">// 是否可以招待goback操作，支持KVO的</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">BOOL</span> canGoBack;</div><div class="line"> </div><div class="line"><span class="comment">// 是否可以执行gofarward操作，支持KVO</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">BOOL</span> canGoForward;</div><div class="line"> </div><div class="line"><span class="comment">// 返回上一页面，如果不能返回，则什么也不干</span></div><div class="line">- (nullableWKNavigation *)goBack;</div><div class="line"> </div><div class="line"><span class="comment">// 进入下一页面，如果不能前进，则什么也不干</span></div><div class="line">- (nullableWKNavigation *)goForward;</div><div class="line"> </div><div class="line"><span class="comment">// 重新载入页面</span></div><div class="line">- (nullableWKNavigation *)reload;</div><div class="line"> </div><div class="line"><span class="comment">// 重新从原始URL载入</span></div><div class="line">- (nullableWKNavigation *)reloadFromOrigin;</div><div class="line"> </div><div class="line"><span class="comment">// 停止加载数据</span></div><div class="line">- (<span class="keyword">void</span>)stopLoading;</div><div class="line"> </div><div class="line"><span class="comment">// 执行JS代码</span></div><div class="line">- (<span class="keyword">void</span>)evaluateJavaScript:(<span class="built_in">NSString</span> *)javaScriptString completionHandler:(<span class="keyword">void</span> (^ __<span class="keyword">nullable</span>)(__nullableid, <span class="built_in">NSError</span> * __nullableerror))completionHandler;</div><div class="line"> </div><div class="line"><span class="comment">// 标识是否支持左、右swipe手势是否可以前进、后退，默认NO</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">BOOL</span> allowsBackForwardNavigationGestures;</div><div class="line"> </div><div class="line"><span class="comment">// 自定义user agent，如果没有则为nil</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nullable</span>, <span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *customUserAgent <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_11, <span class="number">9</span>_0);</div><div class="line"> </div><div class="line"><span class="comment">// 允许链接预览，在iOS和MAC上默认YES</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">BOOL</span> allowsLinkPreview <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_11, <span class="number">9</span>_0);</div><div class="line"> </div><div class="line"><span class="meta">#if TARGET_OS_IPHONE</span></div><div class="line"><span class="comment">/*! @abstract The scroll view associated with the web view.</span></div><div class="line">*/</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">strong</span>) <span class="built_in">UIScrollView</span> *scrollView;</div><div class="line"><span class="meta">#endif</span></div><div class="line"> </div><div class="line"><span class="meta">#if !TARGET_OS_IPHONE</span></div><div class="line"><span class="comment">// 标识是否支持放大手势，默认为NO</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">BOOL</span> allowsMagnification;</div><div class="line"> </div><div class="line"><span class="comment">// 放大因子，默认为1</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">CGFloat</span> magnification;</div><div class="line"> </div><div class="line"><span class="comment">// 根据设置的缩放因子来缩放页面，并居中显示结果在指定的点</span></div><div class="line">- (<span class="keyword">void</span>)setMagnification:(<span class="built_in">CGFloat</span>)magnification centeredAtPoint:(<span class="built_in">CGPoint</span>)point;</div><div class="line"> </div><div class="line"><span class="meta">#endif</span></div></pre></td></tr></table></figure>
+<h2 id="WKUserContentController"><a href="#WKUserContentController" class="headerlink" title="WKUserContentController"></a>WKUserContentController</h2><blockquote>
+<ul>
+<li>我们要通过JS与webview内容交互，就需要到这个类了，它的所有属性及方法说明如下：</li>
+</ul>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 只读属性，所有添加的WKUserScript都在这里可以获取到</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSArray</span>&lt;<span class="built_in">WKUserScript</span> *&gt; *userScripts;</div><div class="line"> </div><div class="line"><span class="comment">// 注入JS</span></div><div class="line">- (<span class="keyword">void</span>)addUserScript:(<span class="built_in">WKUserScript</span> *)userScript;</div><div class="line"> </div><div class="line"><span class="comment">// 移除所有注入的JS</span></div><div class="line">- (<span class="keyword">void</span>)removeAllUserScripts;</div><div class="line"> </div><div class="line"><span class="comment">// 添加scriptMessageHandler到所有的frames中，则都可以通过</span></div><div class="line"><span class="comment">// window.webkit.messageHandlers.&lt;name&gt;.postMessage(&lt;messageBody&gt;)</span></div><div class="line"><span class="comment">// 发送消息</span></div><div class="line"><span class="comment">// 比如，JS要调用我们原生的方法，就可以通过这种方式了</span></div><div class="line">- (<span class="keyword">void</span>)addScriptMessageHandler:(<span class="keyword">id</span> &lt;<span class="built_in">WKScriptMessageHandler</span>&gt;)scriptMessageHandlername:(<span class="built_in">NSString</span> *)name;</div><div class="line"> </div><div class="line"><span class="comment">// 根据name移除所注入的scriptMessageHandler</span></div><div class="line">- (<span class="keyword">void</span>)removeScriptMessageHandlerForName:(<span class="built_in">NSString</span> *)name;</div></pre></td></tr></table></figure>
+<h2 id="WKUserScript"><a href="#WKUserScript" class="headerlink" title="WKUserScript"></a>WKUserScript</h2><blockquote>
+<ul>
+<li>在WKUserContentController中，所有使用到WKUserScript。WKUserContentController是用于与JS交互的类，而所注入的JS是WKUserScript对象。它的所有属性和方法如下：</li>
+</ul>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// JS源代码</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *source;</div><div class="line"> </div><div class="line"><span class="comment">// JS注入时间</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">WKUserScriptInjectionTime</span> injectionTime;</div><div class="line"> </div><div class="line"><span class="comment">// 只读属性，表示JS是否应该注入到所有的frames中还是只有main frame.</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">getter</span>=isForMainFrameOnly) <span class="built_in">BOOL</span> forMainFrameOnly;</div><div class="line"> </div><div class="line"><span class="comment">// 初始化方法，用于创建WKUserScript对象</span></div><div class="line"><span class="comment">// source：JS源代码</span></div><div class="line"><span class="comment">// injectionTime：JS注入的时间</span></div><div class="line"><span class="comment">// forMainFrameOnly：是否只注入main frame</span></div><div class="line">- (<span class="keyword">instancetype</span>)initWithSource:(<span class="built_in">NSString</span> *)sourceinjectionTime:(<span class="built_in">WKUserScriptInjectionTime</span>)injectionTimeforMainFrameOnly:(<span class="built_in">BOOL</span>)forMainFrameOnly;</div></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>WKUserScriptInjectionTime</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">WKUserScriptInjectionTime</span>) &#123;</div><div class="line">    <span class="built_in">WKUserScriptInjectionTimeAtDocumentStart</span>,</div><div class="line">    <span class="built_in">WKUserScriptInjectionTimeAtDocumentEnd</span></div><div class="line">&#125; <span class="built_in">NS_ENUM_AVAILABLE</span>(<span class="number">10</span>_10, <span class="number">8</span>_0);</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+<p>它是一个枚举类型，只有在文档开始加载时注入和加载结束时注入。</p>
+</blockquote>
+<h2 id="WKWebsiteDataStore"><a href="#WKWebsiteDataStore" class="headerlink" title="WKWebsiteDataStore"></a>WKWebsiteDataStore</h2><blockquote>
+<ul>
+<li>iOS9.0以后才能使用这个类。它是代表webview不同的数据类型，包括cookies、disk、memory caches、WebSQL、IndexedDB数据库和本地存储。</li>
+<li>从这里看，要优化Webview好像可以通过它来实现，不过要求iOS9.0以上才能使用。</li>
+</ul>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 默认数据存储</span></div><div class="line">+ (<span class="built_in">WKWebsiteDataStore</span> *)defaultDataStore;</div><div class="line"> </div><div class="line"><span class="comment">// 返回非持久化存储，数据不会写入文件系统</span></div><div class="line">+ (<span class="built_in">WKWebsiteDataStore</span> *)nonPersistentDataStore;</div><div class="line"> </div><div class="line"><span class="comment">// 已经不可用</span></div><div class="line">- (<span class="keyword">instancetype</span>)initNS_UNAVAILABLE;</div><div class="line"> </div><div class="line"><span class="comment">// 只读属性，表示是否是持久化存储</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">getter</span>=isPersistent) <span class="built_in">BOOL</span> persistent;</div><div class="line"> </div><div class="line"><span class="comment">// 获取所有web内容的数据存储类型集，比如cookies、disk等</span></div><div class="line">+ (<span class="built_in">NSSet</span>&lt;<span class="built_in">NSString</span> *&gt; *)allWebsiteDataTypes;</div><div class="line"> </div><div class="line"><span class="comment">// 获取某些指定数据存储类型的数据</span></div><div class="line">- (<span class="keyword">void</span>)fetchDataRecordsOfTypes:(<span class="built_in">NSSet</span>&lt;<span class="built_in">NSString</span> *&gt; *)dataTypescompletionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">NSArray</span>&lt;<span class="built_in">WKWebsiteDataRecord</span> *&gt; *))completionHandler;</div><div class="line"> </div><div class="line"><span class="comment">// 删除某些指定类型的数据</span></div><div class="line">- (<span class="keyword">void</span>)removeDataOfTypes:(<span class="built_in">NSSet</span>&lt;<span class="built_in">NSString</span> *&gt; *)dataTypesforDataRecords:(<span class="built_in">NSArray</span>&lt;<span class="built_in">WKWebsiteDataRecord</span> *&gt; *)dataRecordscompletionHandler:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))completionHandler;</div><div class="line"> </div><div class="line"><span class="comment">// 删除某些指定类型的数据且修改日期是指定的日期</span></div><div class="line">- (<span class="keyword">void</span>)removeDataOfTypes:(<span class="built_in">NSSet</span>&lt;<span class="built_in">NSString</span> *&gt; *)websiteDataTypesmodifiedSince:(<span class="built_in">NSDate</span> *)datecompletionHandler:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))completionHandler;</div></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>所有的dataTypes是下面这些系统所定义的：</li>
+</ul>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">WK_EXTERN</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">WKWebsiteDataTypeDiskCache</span> <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_11, <span class="number">9</span>_0);</div><div class="line"> </div><div class="line"><span class="built_in">WK_EXTERN</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">WKWebsiteDataTypeMemoryCache</span> <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_11, <span class="number">9</span>_0);</div><div class="line"> </div><div class="line"><span class="built_in">WK_EXTERN</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">WKWebsiteDataTypeOfflineWebApplicationCache</span> <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_11, <span class="number">9</span>_0);</div><div class="line"> </div><div class="line"><span class="built_in">WK_EXTERN</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">WKWebsiteDataTypeCookies</span> <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_11, <span class="number">9</span>_0);</div><div class="line"> </div><div class="line"><span class="built_in">WK_EXTERN</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">WKWebsiteDataTypeSessionStorage</span> <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_11, <span class="number">9</span>_0);</div><div class="line"> </div><div class="line"><span class="built_in">WK_EXTERN</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">WKWebsiteDataTypeLocalStorage</span> <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_11, <span class="number">9</span>_0);</div><div class="line"> </div><div class="line"><span class="built_in">WK_EXTERN</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">WKWebsiteDataTypeWebSQLDatabases</span> <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_11, <span class="number">9</span>_0);</div><div class="line"> </div><div class="line"><span class="built_in">WK_EXTERN</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">WKWebsiteDataTypeIndexedDBDatabases</span> <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_11, <span class="number">9</span>_0);</div></pre></td></tr></table></figure>
+<h2 id="WKWebsiteDataRecord"><a href="#WKWebsiteDataRecord" class="headerlink" title="WKWebsiteDataRecord"></a>WKWebsiteDataRecord</h2><blockquote>
+<ul>
+<li>iOS9.0以后才可用。website的数据存储记录类型，它只有两个属性：</li>
+</ul>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 通常是域名</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *displayName;</div><div class="line"> </div><div class="line"><span class="comment">// 存储的数据类型集</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSSet</span>&lt;<span class="built_in">NSString</span> *&gt; *dataTypes;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/18/iOS-AVFoundation/" rel="next" title="AVFoundation概述">
+                <i class="fa fa-chevron-left"></i> AVFoundation概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/29/iOS国际化/" rel="prev" title="iOS国际化">
+                iOS国际化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">iBiNCoder</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单初始化"><span class="nav-number">1.</span> <span class="nav-text">简单初始化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WKWebViewConfiguration"><span class="nav-number">2.</span> <span class="nav-text">WKWebViewConfiguration</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述：用来初始化web视图的属性集合。"><span class="nav-number">2.0.1.</span> <span class="nav-text">概述：用来初始化web视图的属性集合。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性："><span class="nav-number">2.0.2.</span> <span class="nav-text">属性：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-processPool（不需要设置）"><span class="nav-number">2.0.2.0.1.</span> <span class="nav-text">1.processPool（不需要设置）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-preferences"><span class="nav-number">2.0.2.0.2.</span> <span class="nav-text">2.preferences</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-userContentController"><span class="nav-number">2.0.2.0.3.</span> <span class="nav-text">3.userContentController</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-websiteDataStore"><span class="nav-number">2.0.2.0.4.</span> <span class="nav-text">4.websiteDataStore</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-suppressesIncrementalRendering"><span class="nav-number">2.0.2.0.5.</span> <span class="nav-text">5.suppressesIncrementalRendering</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-applicationNameForUserAgent"><span class="nav-number">2.0.2.0.6.</span> <span class="nav-text">6.applicationNameForUserAgent</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-allowsAirPlayForMediaPlayback"><span class="nav-number">2.0.2.0.7.</span> <span class="nav-text">7.allowsAirPlayForMediaPlayback</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-mediaTypesRequiringUserActionForPlayback"><span class="nav-number">2.0.2.0.8.</span> <span class="nav-text">8.mediaTypesRequiringUserActionForPlayback</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-allowsInlineMediaPlayback"><span class="nav-number">2.0.2.0.9.</span> <span class="nav-text">9.allowsInlineMediaPlayback</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-selectionGranularity"><span class="nav-number">2.0.2.0.10.</span> <span class="nav-text">10.selectionGranularity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-allowsPictureInPictureMediaPlayback"><span class="nav-number">2.0.2.0.11.</span> <span class="nav-text">11.allowsPictureInPictureMediaPlayback</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-dataDetectorTypes"><span class="nav-number">2.0.2.0.12.</span> <span class="nav-text">12.dataDetectorTypes</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-ignoresViewportScaleLimits"><span class="nav-number">2.0.2.0.13.</span> <span class="nav-text">13.ignoresViewportScaleLimits</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-userInterfaceDirectionPolicy"><span class="nav-number">2.0.2.0.14.</span> <span class="nav-text">14.userInterfaceDirectionPolicy</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例代码："><span class="nav-number">2.0.3.</span> <span class="nav-text">示例代码：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#监听加载状态、处理跳转、WKNavigationDelegate"><span class="nav-number">3.</span> <span class="nav-text">监听加载状态、处理跳转、WKNavigationDelegate</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WKUIDelegate"><span class="nav-number">4.</span> <span class="nav-text">WKUIDelegate</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他："><span class="nav-number">5.</span> <span class="nav-text">其他：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WKWebView的头文件声明"><span class="nav-number">5.1.</span> <span class="nav-text">WKWebView的头文件声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WKUserContentController"><span class="nav-number">5.2.</span> <span class="nav-text">WKUserContentController</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WKUserScript"><span class="nav-number">5.3.</span> <span class="nav-text">WKUserScript</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WKWebsiteDataStore"><span class="nav-number">5.4.</span> <span class="nav-text">WKWebsiteDataStore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WKWebsiteDataRecord"><span class="nav-number">5.5.</span> <span class="nav-text">WKWebsiteDataRecord</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iBiNCoder</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

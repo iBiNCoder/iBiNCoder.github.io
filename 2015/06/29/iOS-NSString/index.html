@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. “2011-11-29” 改写成 “2011/11/29”，用NSString的方法一句话搞定：1[string stringByReplacingOccurrencesOfString:@&quot;-&quot;withString:@&quot;/&quot;];">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSString的几种常用方法">
+<meta property="og:url" content="http://yoursite.com/2015/06/29/iOS-NSString/index.html">
+<meta property="og:site_name" content="iBiNCoder's blog">
+<meta property="og:description" content="1. “2011-11-29” 改写成 “2011/11/29”，用NSString的方法一句话搞定：1[string stringByReplacingOccurrencesOfString:@&quot;-&quot;withString:@&quot;/&quot;];">
+<meta property="og:updated_time" content="2018-07-13T13:57:45.283Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NSString的几种常用方法">
+<meta name="twitter:description" content="1. “2011-11-29” 改写成 “2011/11/29”，用NSString的方法一句话搞定：1[string stringByReplacingOccurrencesOfString:@&quot;-&quot;withString:@&quot;/&quot;];">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/06/29/iOS-NSString/"/>
+
+
+
+
+
+  <title>NSString的几种常用方法 | iBiNCoder's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">iBiNCoder's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/06/29/iOS-NSString/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="iBiNCoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="iBiNCoder's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NSString的几种常用方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-06-29T18:21:05+08:00">
+                2015-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-“2011-11-29”-改写成-“2011-11-29”，用NSString的方法一句话搞定："><a href="#1-“2011-11-29”-改写成-“2011-11-29”，用NSString的方法一句话搞定：" class="headerlink" title="1. “2011-11-29” 改写成 “2011/11/29”，用NSString的方法一句话搞定："></a>1. “2011-11-29” 改写成 “2011/11/29”，用NSString的方法一句话搞定：</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[string <span class="string">stringByReplacingOccurrencesOfString:</span>@<span class="string">"-"</span><span class="string">withString:</span>@<span class="string">"/"</span>];</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="2-字符串转换为utf-8格式-参数为char-类型"><a href="#2-字符串转换为utf-8格式-参数为char-类型" class="headerlink" title="2. 字符串转换为utf-8格式, 参数为char*类型"></a>2. 字符串转换为utf-8格式, 参数为char*类型</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str3 = [<span class="built_in">NSString</span> stringWithUTF8String:<span class="string">"字符串转换utf-8格式"</span>];</div></pre></td></tr></table></figure>
+<h4 id="3-字符串的遍历"><a href="#3-字符串的遍历" class="headerlink" title="3. 字符串的遍历"></a>3. 字符串的遍历</h4><p>每一个字符串其实是由若干个char字符组成，字符串的遍历实际上就是将字符串中的每一个字符提取出来。 </p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//经典的字符串赋值</span></div><div class="line">NSString *<span class="keyword">str</span> = @<span class="string">"YUSONGMOMO"</span>;</div><div class="line"></div><div class="line"><span class="comment">//字符串的长度</span></div><div class="line"><span class="keyword">int</span> <span class="keyword">count</span> = [<span class="keyword">str</span> length];</div><div class="line"></div><div class="line"><span class="comment">//遍历字符串中的每一个字符</span></div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i &lt; <span class="keyword">count</span>; i++) &#123;</div><div class="line">    <span class="keyword">char</span> c = [<span class="keyword">str</span> characterAtIndex:i];</div><div class="line">    NSLog(@<span class="string">"字符串第 %d 位为 %c"</span>,i,c);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="4-字符串的比较"><a href="#4-字符串的比较" class="headerlink" title="4. 字符串的比较"></a>4. 字符串的比较</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str0 = <span class="string">@"justcoding"</span>;</div><div class="line"><span class="built_in">NSString</span> *str1 = <span class="string">@"justcoding"</span>;</div><div class="line"></div><div class="line"><span class="comment">//字符串完全相等比较</span></div><div class="line"><span class="keyword">if</span>([str0 isEqualToString:str1]) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"字符串完全相等"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//字符串以开头比较</span></div><div class="line"><span class="keyword">if</span>([str0 hasPrefix:<span class="string">@"just"</span>]) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"字符串str0以just开头"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//字符串以结尾比较</span></div><div class="line"><span class="keyword">if</span>([str1 hasSuffix:<span class="string">@"coding"</span>]) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"str1字符串以coding结尾"</span>);</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">//isEqualToString方法      </span></div><div class="line"><span class="built_in">NSString</span> *astring01 = <span class="string">@"This is a String!"</span>;  </div><div class="line"><span class="built_in">NSString</span> *astring02 = <span class="string">@"This is a String!"</span>;  </div><div class="line"><span class="built_in">BOOL</span> result = [astring01 isEqualToString:astring02];  </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"result:%d"</span>,result);  </div><div class="line"><span class="comment">//isEqualToString方法    </span></div><div class="line"><span class="built_in">NSString</span> *astring01 = <span class="string">@"This is a String!"</span>;</div><div class="line"><span class="built_in">NSString</span> *astring02 = <span class="string">@"This is a String!"</span>;</div><div class="line"><span class="built_in">BOOL</span> result = [astring01 isEqualToString:astring02];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"result:%d"</span>,result);</div><div class="line"> </div><div class="line"><span class="comment">//compare方法(comparer返回的三种值)      </span></div><div class="line"><span class="built_in">NSString</span> *astring01 = <span class="string">@"This is a String!"</span>;  </div><div class="line"><span class="built_in">NSString</span> *astring02 = <span class="string">@"This is a String!"</span>;      </div><div class="line"><span class="built_in">BOOL</span> result = [astring01 compare:astring02] = = <span class="built_in">NSOrderedSame</span>;      </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"result:%d"</span>,result);      </div><div class="line"><span class="comment">//NSOrderedSame 判断两者内容是否相同  </span></div><div class="line"><span class="comment">//compare方法(comparer返回的三种值)    </span></div><div class="line"><span class="built_in">NSString</span> *astring01 = <span class="string">@"This is a String!"</span>;</div><div class="line"><span class="built_in">NSString</span> *astring02 = <span class="string">@"This is a String!"</span>;    </div><div class="line"><span class="built_in">BOOL</span> result = [astring01 compare:astring02] = = <span class="built_in">NSOrderedSame</span>;    </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"result:%d"</span>,result);    </div><div class="line"><span class="comment">//NSOrderedSame 判断两者内容是否相同</span></div><div class="line"> </div><div class="line"><span class="built_in">NSString</span> *astring01 = <span class="string">@"This is a String!"</span>;  </div><div class="line"><span class="built_in">NSString</span> *astring02 = <span class="string">@"this is a String!"</span>;  </div><div class="line"><span class="built_in">BOOL</span> result = [astring01 compare:astring02] = = <span class="built_in">NSOrderedAscending</span>;      </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"result:%d"</span>,result);  </div><div class="line"><span class="comment">//NSOrderedAscending 判断两对象值的大小(按字母顺序进行比较，astring02大于astring01为真)  </span></div><div class="line"><span class="built_in">NSString</span> *astring01 = <span class="string">@"This is a String!"</span>;</div><div class="line"><span class="built_in">NSString</span> *astring02 = <span class="string">@"this is a String!"</span>;</div><div class="line"><span class="built_in">BOOL</span> result = [astring01 compare:astring02] = = <span class="built_in">NSOrderedAscending</span>;    </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"result:%d"</span>,result);</div><div class="line"><span class="comment">//NSOrderedAscending 判断两对象值的大小(按字母顺序进行比较，astring02大于astring01为真)</span></div><div class="line"> </div><div class="line"><span class="built_in">NSString</span> *astring01 = <span class="string">@"this is a String!"</span>;  </div><div class="line"><span class="built_in">NSString</span> *astring02 = <span class="string">@"This is a String!"</span>;  </div><div class="line"><span class="built_in">BOOL</span> result = [astring01 compare:astring02] = = <span class="built_in">NSOrderedDescending</span>;      </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"result:%d"</span>,result);      </div><div class="line"><span class="comment">//NSOrderedDescending 判断两对象值的大小(按字母顺序进行比较，astring02小于astring01为真)  </span></div><div class="line"><span class="built_in">NSString</span> *astring01 = <span class="string">@"this is a String!"</span>;</div><div class="line"><span class="built_in">NSString</span> *astring02 = <span class="string">@"This is a String!"</span>;</div><div class="line"><span class="built_in">BOOL</span> result = [astring01 compare:astring02] = = <span class="built_in">NSOrderedDescending</span>;    </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"result:%d"</span>,result);    </div><div class="line"><span class="comment">//NSOrderedDescending 判断两对象值的大小(按字母顺序进行比较，astring02小于astring01为真)</span></div><div class="line"> </div><div class="line"><span class="comment">//不考虑大 小写比较字符串1  </span></div><div class="line"><span class="built_in">NSString</span> *astring01 = <span class="string">@"this is a String!"</span>;  </div><div class="line"><span class="built_in">NSString</span> *astring02 = <span class="string">@"This is a String!"</span>;  </div><div class="line"><span class="built_in">BOOL</span> result = [astring01 caseInsensitiveCompare:astring02] = = <span class="built_in">NSOrderedSame</span>;      </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"result:%d"</span>,result);      </div><div class="line"><span class="comment">//NSOrderedDescending判断两对象值的大小(按字母顺序进行比较，astring02小于astring01为 真)  </span></div><div class="line"><span class="comment">//不考虑大 小写比较字符串1</span></div><div class="line"><span class="built_in">NSString</span> *astring01 = <span class="string">@"this is a String!"</span>;</div><div class="line"><span class="built_in">NSString</span> *astring02 = <span class="string">@"This is a String!"</span>;</div><div class="line"><span class="built_in">BOOL</span> result = [astring01 caseInsensitiveCompare:astring02] = = <span class="built_in">NSOrderedSame</span>;    </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"result:%d"</span>,result);    </div><div class="line"><span class="comment">//NSOrderedDescending判断两对象值的大小(按字母顺序进行比较，astring02小于astring01为 真)</span></div><div class="line"> </div><div class="line"><span class="comment">//不考虑大小写比较字符串2  </span></div><div class="line"><span class="built_in">NSString</span> *astring01 = <span class="string">@"this is a String!"</span>;  </div><div class="line"><span class="built_in">NSString</span> *astring02 = <span class="string">@"This is a String!"</span>;  </div><div class="line"><span class="built_in">BOOL</span> result = [astring01 compare:astring02 options:<span class="built_in">NSCaseInsensitiveSearch</span> | <span class="built_in">NSNumericSearch</span>] = = <span class="built_in">NSOrderedSame</span>;      </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"result:%d"</span>,result);      </div><div class="line"><span class="comment">//NSCaseInsensitiveSearch:不区分大小写比较 NSLiteralSearch:进行完全比较，区分大小写 NSNumericSearch:比较字符串的字符个数，而不是字符值。  </span></div><div class="line"></div><div class="line"><span class="comment">//不考虑大小写比较字符串2</span></div><div class="line"><span class="built_in">NSString</span> *astring01 = <span class="string">@"this is a String!"</span>;</div><div class="line"><span class="built_in">NSString</span> *astring02 = <span class="string">@"This is a String!"</span>;</div><div class="line"><span class="built_in">BOOL</span> result = [astring01 compare:astring02 options:<span class="built_in">NSCaseInsensitiveSearch</span> | <span class="built_in">NSNumericSearch</span>] = = <span class="built_in">NSOrderedSame</span>;    </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"result:%d"</span>,result);  </div><div class="line">  </div><div class="line"><span class="comment">//NSCaseInsensitiveSearch:不区分大小写比较 NSLiteralSearch:进行完全比较，区分大小写 NSNumericSearch:比较字符串的字符个数，而不是字符值。</span></div><div class="line">判断的方法可以利用 <span class="built_in">NSString</span> 类别中 caseInsensitiveCompare: 所回传 <span class="number">-1</span>、<span class="number">0</span> 或是 <span class="number">1</span> 的数值，判定两个字串之间得排序关系，其程式玛如下。</div><div class="line"></div><div class="line"><span class="built_in">NSString</span> *string = <span class="string">@"0"</span>;  </div><div class="line"> <span class="built_in">NSComparisonResult</span> result = [string caseInsensitiveCompare:<span class="string">@"A"</span>];  </div><div class="line"> <span class="keyword">switch</span> (result) &#123;  </div><div class="line"> <span class="keyword">case</span> <span class="built_in">NSOrderedAscending</span>:  </div><div class="line"> <span class="built_in">NSLog</span>(<span class="string">@"升幂"</span>);  </div><div class="line"> <span class="keyword">break</span>;  </div><div class="line"> <span class="keyword">case</span> <span class="built_in">NSOrderedSame</span>:  </div><div class="line"> <span class="built_in">NSLog</span>(<span class="string">@"忽略大小写相同的字串"</span>);  </div><div class="line"> <span class="keyword">break</span>;  </div><div class="line"> <span class="keyword">case</span> <span class="built_in">NSOrderedDescending</span>:  </div><div class="line"> <span class="built_in">NSLog</span>(<span class="string">@"降幂"</span>);  </div><div class="line"> <span class="keyword">break</span>;  </div><div class="line"> <span class="keyword">default</span>:  </div><div class="line"> <span class="built_in">NSLog</span>(<span class="string">@"无法判定"</span>);  </div><div class="line"> <span class="keyword">break</span>;  </div><div class="line"><span class="built_in">NSString</span> *string = <span class="string">@"0"</span>;</div><div class="line"> <span class="built_in">NSComparisonResult</span> result = [string caseInsensitiveCompare:<span class="string">@"A"</span>];</div><div class="line"></div><div class="line"> <span class="keyword">switch</span> (result) &#123;</div><div class="line"> <span class="keyword">case</span> <span class="built_in">NSOrderedAscending</span>:</div><div class="line"> <span class="built_in">NSLog</span>(<span class="string">@"升幂"</span>);</div><div class="line"> <span class="keyword">break</span>;</div><div class="line"></div><div class="line"> <span class="keyword">case</span> <span class="built_in">NSOrderedSame</span>:</div><div class="line"> <span class="built_in">NSLog</span>(<span class="string">@"忽略大小写相同的字串"</span>);</div><div class="line"> <span class="keyword">break</span>;</div><div class="line"></div><div class="line"> <span class="keyword">case</span> <span class="built_in">NSOrderedDescending</span>:</div><div class="line"> <span class="built_in">NSLog</span>(<span class="string">@"降幂"</span>);</div><div class="line"> <span class="keyword">break</span>;</div><div class="line"></div><div class="line"> <span class="keyword">default</span>:</div><div class="line"> <span class="built_in">NSLog</span>(<span class="string">@"无法判定"</span>);</div><div class="line"> <span class="keyword">break</span>;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<h4 id="5-文件字符串操作（读写）"><a href="#5-文件字符串操作（读写）" class="headerlink" title="5. 文件字符串操作（读写）"></a>5. 文件字符串操作（读写）</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//从文件读取字符串:initWithContentsOfFile方法  </span></div><div class="line"><span class="built_in">NSString</span> *path = <span class="string">@"astring.text"</span>;  </div><div class="line"><span class="built_in">NSString</span> *astring = [[<span class="built_in">NSString</span> alloc] initWithContentsOfFile:path];  </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"astring:%@"</span>,astring);  </div><div class="line">[astring release]; <span class="comment">//astring=nil;  </span></div><div class="line"><span class="comment">//从文件读取字符串:initWithContentsOfFile方法</span></div><div class="line"><span class="built_in">NSString</span> *path = <span class="string">@"astring.text"</span>;</div><div class="line"><span class="built_in">NSString</span> *astring = [[<span class="built_in">NSString</span> alloc] initWithContentsOfFile:path];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"astring:%@"</span>,astring);</div><div class="line">[astring release]; <span class="comment">//astring=nil;</span></div><div class="line"> </div><div class="line"><span class="comment">//写字符串到文件:writeToFile方法  </span></div><div class="line"><span class="built_in">NSString</span> *astring = [[<span class="built_in">NSString</span> alloc] initWithString:<span class="string">@"This is a String!"</span>];  </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"astring:%@"</span>,astring);  </div><div class="line"><span class="built_in">NSString</span> *path = <span class="string">@"astring.text"</span>;      </div><div class="line">[astring writeToFile: path atomically: <span class="literal">YES</span>];  </div><div class="line">[astring release];  <span class="comment">//astring=nil;  </span></div><div class="line"><span class="comment">//写字符串到文件:writeToFile方法</span></div><div class="line"><span class="built_in">NSString</span> *astring = [[<span class="built_in">NSString</span> alloc] initWithString:<span class="string">@"This is a String!"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"astring:%@"</span>,astring);</div><div class="line"><span class="built_in">NSString</span> *path = <span class="string">@"astring.text"</span>;    </div><div class="line">[astring writeToFile: path atomically: <span class="literal">YES</span>];</div><div class="line">[astring release];  <span class="comment">//astring=nil;</span></div><div class="line"> </div><div class="line"></div><div class="line"><span class="comment">//扩展路径  </span></div><div class="line"><span class="built_in">NSString</span> *Path = <span class="string">@"~/NSData.txt"</span>;  </div><div class="line"><span class="built_in">NSString</span> *absolutePath = [Path stringByExpandingTildeInPath];  </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"absolutePath:%@"</span>,absolutePath);  </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"Path:%@"</span>,[absolutePath stringByAbbreviatingWithTildeInPath]);  </div><div class="line"><span class="comment">//扩展路径</span></div><div class="line"><span class="built_in">NSString</span> *Path = <span class="string">@"~/NSData.txt"</span>;</div><div class="line"><span class="built_in">NSString</span> *absolutePath = [Path stringByExpandingTildeInPath];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"absolutePath:%@"</span>,absolutePath);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"Path:%@"</span>,[absolutePath stringByAbbreviatingWithTildeInPath]);</div><div class="line"><span class="comment">//文件扩展名  </span></div><div class="line"><span class="built_in">NSString</span> *Path = <span class="string">@"~/NSData.txt"</span>;  </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"Extension:%@"</span>,[Path pathExtension]);  </div><div class="line"><span class="comment">//文件扩展名</span></div><div class="line"><span class="built_in">NSString</span> *Path = <span class="string">@"~/NSData.txt"</span>;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"Extension:%@"</span>,[Path pathExtension]);</div></pre></td></tr></table></figure>
+<h4 id="6-字符串的截取和大小写"><a href="#6-字符串的截取和大小写" class="headerlink" title="6. 字符串的截取和大小写"></a>6. 字符串的截取和大小写</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//改变字符串的大小写  </span></div><div class="line"><span class="built_in">NSString</span> *string1 = <span class="string">@"A String"</span>;  </div><div class="line"><span class="built_in">NSString</span> *string2 = <span class="string">@"String"</span>;  </div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"string1:%@"</span>,[string1 uppercaseString]);<span class="comment">//大写  </span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"string2:%@"</span>,[string2 lowercaseString]);<span class="comment">//小写  </span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"string2:%@"</span>,[string2 capitalizedString]);<span class="comment">//首字母大小  </span></div><div class="line"><span class="comment">//改变字符串的大小写</span></div><div class="line"><span class="built_in">NSString</span> *string1 = <span class="string">@"A String"</span>;</div><div class="line"><span class="built_in">NSString</span> *string2 = <span class="string">@"String"</span>;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"string1:%@"</span>,[string1 uppercaseString]);<span class="comment">//大写</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"string2:%@"</span>,[string2 lowercaseString]);<span class="comment">//小写</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"string2:%@"</span>,[string2 capitalizedString]);<span class="comment">//首字母大小</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="built_in">NSString</span> *str0 = <span class="string">@"中文my name is xuanyusong"</span>;</div><div class="line"></div><div class="line"><span class="comment">//截取字符串起始点到index为4之间的内容</span></div><div class="line"><span class="built_in">NSString</span> * to = [str0 substringToIndex:<span class="number">4</span>];</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"to = %@"</span>,to);</div><div class="line"></div><div class="line"><span class="comment">//截取字符index为2 到结尾之间的内容</span></div><div class="line"><span class="built_in">NSString</span> * from = [str0 substringFromIndex:<span class="number">2</span>];</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"from = %@"</span>,from);</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//设置截取字符串的范围</span></div><div class="line"><span class="comment">//从第二位开始,长度为十</span></div><div class="line"><span class="built_in">NSRange</span> rang = <span class="built_in">NSMakeRange</span>(<span class="number">2</span>, <span class="number">10</span>);</div><div class="line"><span class="built_in">NSString</span> * strRang = [str0 substringWithRange:rang];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"rang = %@"</span>,strRang);</div><div class="line"></div><div class="line"><span class="comment">//设置字符串首字母大写</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str0首字母大写:%@"</span>,[str0 capitalizedString]);</div><div class="line"><span class="comment">//设置字符串全部内容为大写</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str0大写:%@"</span>,[str0 uppercaseString]);</div><div class="line"><span class="comment">//设置字符全部内容为小写</span></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"str0小写:%@"</span>,[str0 lowercaseString]);</div></pre></td></tr></table></figure>
+<h4 id="7-搜索字符串与替换字符串"><a href="#7-搜索字符串与替换字符串" class="headerlink" title="7. 搜索字符串与替换字符串"></a>7. 搜索字符串与替换字符串</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *str0 = <span class="string">@"中文my name is xuanyusong"</span>;</div><div class="line"><span class="built_in">NSString</span> *temp = <span class="string">@"is"</span>;</div><div class="line"><span class="built_in">NSRange</span> rang = [str0 rangeOfString:temp];</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"搜索的字符串在str0中起始点的index 为 %d"</span>, rang.location);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"搜索的字符串在str0中结束点的index 为 %d"</span>, rang.location + rang.length);</div><div class="line"></div><div class="line"><span class="comment">//将搜索中的字符串替换成为一个新的字符串</span></div><div class="line"><span class="built_in">NSString</span> *str = [str0 stringByReplacingCharactersInRange:rang withString:<span class="string">@"哇咔咔卡卡咔"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"替换后字符串为%@"</span>, str);</div><div class="line"></div><div class="line"><span class="comment">//将字符串中" " 全部替换成 *</span></div><div class="line">str = [str0 stringByReplacingOccurrencesOfString :<span class="string">@" "</span> withString:<span class="string">@"@"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"替换后字符串为%@"</span>, str);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>使用下面这个方法整体替换字符串还可以设置替换的区域。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">stringByReplacingOccurrencesOfString</span><span class="selector-pseudo">:(NSString</span> *) <span class="selector-tag">withString</span><span class="selector-pseudo">:(NSString</span> *) <span class="selector-tag">options</span><span class="selector-pseudo">:(NSStringCompareOptions)</span> <span class="selector-tag">range</span><span class="selector-pseudo">:(NSRange)</span></div></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="8-字符串尾部添加"><a href="#8-字符串尾部添加" class="headerlink" title="8. 字符串尾部添加"></a>8. 字符串尾部添加</h4><figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加普通的字符串</span></div><div class="line">[<span class="keyword">str</span> appendString:@<span class="string">"aaa"</span>];</div><div class="line"></div><div class="line"><span class="comment">//添加字符串 整型 字符型</span></div><div class="line">[<span class="keyword">str</span> appendFormat:@<span class="string">"我的名字：%@ 我的年龄：%d 我的邮箱：%s"</span>,@<span class="string">"justcoding"</span>, <span class="number">25</span>,<span class="string">"justcoding@gmail.com"</span>];</div></pre></td></tr></table></figure>
+<h4 id="9-字符串中删除元素"><a href="#9-字符串中删除元素" class="headerlink" title="9. 字符串中删除元素"></a>9. 字符串中删除元素</h4><figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//创建字符串</span></div><div class="line">NSMutableString *<span class="keyword">str</span> = [NSMutableString stringWithString:@<span class="string">"justcoding is best!"</span>];</div><div class="line"></div><div class="line"><span class="comment">//删除字符串中含"justcoding"的字符</span></div><div class="line">[<span class="keyword">str</span> deleteCharactersInRange: [<span class="keyword">str</span> rangeOfString: @<span class="string">"justcoding"</span>]];</div></pre></td></tr></table></figure>
+<h4 id="10-字符串插入"><a href="#10-字符串插入" class="headerlink" title="10. 字符串插入"></a>10. 字符串插入</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//创建字符串</span></div><div class="line">NSMutableString *str = [NSMutableString <span class="string">stringWithString:</span>@<span class="string">"justcoding is"</span>];</div><div class="line"></div><div class="line"><span class="comment">//在str第10位插入字符串</span></div><div class="line">[str <span class="string">insertString:</span>@<span class="string">"best man"</span> <span class="string">atIndex:</span><span class="number">10</span>];</div></pre></td></tr></table></figure>
+<h4 id="11-字符串拷贝"><a href="#11-字符串拷贝" class="headerlink" title="11. 字符串拷贝"></a>11. 字符串拷贝</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//创建字符串</span></div><div class="line"><span class="built_in">NSMutableString</span> *str1 = [<span class="built_in">NSMutableString</span> stringWithString: <span class="string">@"字符串1"</span>];</div><div class="line"><span class="built_in">NSMutableString</span> *str2;</div><div class="line"></div><div class="line"><span class="comment">//字符串赋值</span></div><div class="line">str2 = str1;</div><div class="line"></div><div class="line">[str2 appendString: <span class="string">@" 和字符串2"</span>];</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span> (<span class="string">@"str1 = %@"</span>, str1);</div><div class="line"><span class="built_in">NSLog</span> (<span class="string">@"str2 = %@"</span>, str2);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>为什么给str2添加数据后,str1的数据也改变了？因为我们操作的是指针，str2 = str1 表示两个指针指向一块内存，那么str2指向的内存内容改变以后str1也跟着改变了。</p>
+</blockquote>
+<h4 id="12-字符串与指定类型转换"><a href="#12-字符串与指定类型转换" class="headerlink" title="12. 字符串与指定类型转换"></a>12. 字符串与指定类型转换</h4><blockquote>
+<p>如果转换的参数非法的话不会抛出异常，好比用中文去转整型。不会报错，但是转换结果为0</p>
+</blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//字符串转整型</span></div><div class="line"><span class="built_in">NSString</span> *str0 = <span class="string">@"1121"</span>;</div><div class="line"><span class="comment">//NSString *str0 = @"中国";</span></div><div class="line"></div><div class="line"><span class="comment">//把字符串强转成整型</span></div><div class="line"><span class="keyword">int</span> i = [str0 intValue];</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span> (<span class="string">@"转换后：%i"</span>, i);</div><div class="line"></div><div class="line"><span class="comment">//字符串转interger</span></div><div class="line"><span class="built_in">NSString</span> *str1 = <span class="string">@"1985"</span>;</div><div class="line"><span class="comment">// NSString *str1 = @"中国";</span></div><div class="line"></div><div class="line"><span class="comment">//把字符串强转成interger</span></div><div class="line"><span class="built_in">NSInteger</span> ii = [str1 integerValue];</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span> (<span class="string">@"转换后：%i"</span>, ii);</div><div class="line"></div><div class="line"><span class="comment">//字符串转double</span></div><div class="line"><span class="built_in">NSString</span> *str2 = <span class="string">@"3.145926"</span>;</div><div class="line"><span class="comment">//NSString *str2 = @"中国";</span></div><div class="line"></div><div class="line"><span class="comment">//把字符串强转成double</span></div><div class="line"><span class="keyword">double</span> d = [str2 doubleValue];</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span> (<span class="string">@"转换后：%f"</span>, d);</div><div class="line"></div><div class="line"><span class="comment">//字符串转float</span></div><div class="line"><span class="built_in">NSString</span> *str3 = <span class="string">@"3.145926"</span>;</div><div class="line"><span class="comment">//NSString *str3 = @"中国";</span></div><div class="line"><span class="comment">//把字符串强转成float</span></div><div class="line"><span class="keyword">double</span> f = [str3 floatValue];</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span> (<span class="string">@"转换后：%f"</span>, f);</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/10/iOS内购/" rel="prev" title="iOS内购及一些要注意的坑">
+                iOS内购及一些要注意的坑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">iBiNCoder</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-“2011-11-29”-改写成-“2011-11-29”，用NSString的方法一句话搞定："><span class="nav-number">1.</span> <span class="nav-text">1. “2011-11-29” 改写成 “2011/11/29”，用NSString的方法一句话搞定：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-字符串转换为utf-8格式-参数为char-类型"><span class="nav-number">2.</span> <span class="nav-text">2. 字符串转换为utf-8格式, 参数为char*类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-字符串的遍历"><span class="nav-number">3.</span> <span class="nav-text">3. 字符串的遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-字符串的比较"><span class="nav-number">4.</span> <span class="nav-text">4. 字符串的比较</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-文件字符串操作（读写）"><span class="nav-number">5.</span> <span class="nav-text">5. 文件字符串操作（读写）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-字符串的截取和大小写"><span class="nav-number">6.</span> <span class="nav-text">6. 字符串的截取和大小写</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-搜索字符串与替换字符串"><span class="nav-number">7.</span> <span class="nav-text">7. 搜索字符串与替换字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-字符串尾部添加"><span class="nav-number">8.</span> <span class="nav-text">8. 字符串尾部添加</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-字符串中删除元素"><span class="nav-number">9.</span> <span class="nav-text">9. 字符串中删除元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-字符串插入"><span class="nav-number">10.</span> <span class="nav-text">10. 字符串插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-字符串拷贝"><span class="nav-number">11.</span> <span class="nav-text">11. 字符串拷贝</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-字符串与指定类型转换"><span class="nav-number">12.</span> <span class="nav-text">12. 字符串与指定类型转换</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iBiNCoder</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

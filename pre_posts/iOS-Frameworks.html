@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.Accelerate.framework
+
+高性能的做大规模的数学计算和图像计算的库
+主要用来做数字信号处理、图像处理相关的向量、矩阵运算。
+图像可以认为是由向量或者矩阵数据构成的，Accelerate里提供了高效的数学运算API，能方便我们对图像做各种各样的处理
+
+
+2.Accounts.framework
+
+帮助用户访问和管理他们的外部帐户，而不需要他们进入账户登录认证
+
+
+3.Addre">
+<meta property="og:type" content="website">
+<meta property="og:title" content="iOS Frameworks 一览">
+<meta property="og:url" content="http://yoursite.com/pre_posts/iOS-Frameworks.html">
+<meta property="og:site_name" content="iBiNCoder's blog">
+<meta property="og:description" content="1.Accelerate.framework
+
+高性能的做大规模的数学计算和图像计算的库
+主要用来做数字信号处理、图像处理相关的向量、矩阵运算。
+图像可以认为是由向量或者矩阵数据构成的，Accelerate里提供了高效的数学运算API，能方便我们对图像做各种各样的处理
+
+
+2.Accounts.framework
+
+帮助用户访问和管理他们的外部帐户，而不需要他们进入账户登录认证
+
+
+3.Addre">
+<meta property="og:updated_time" content="2018-07-13T14:54:58.277Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS Frameworks 一览">
+<meta name="twitter:description" content="1.Accelerate.framework
+
+高性能的做大规模的数学计算和图像计算的库
+主要用来做数字信号处理、图像处理相关的向量、矩阵运算。
+图像可以认为是由向量或者矩阵数据构成的，Accelerate里提供了高效的数学运算API，能方便我们对图像做各种各样的处理
+
+
+2.Accounts.framework
+
+帮助用户访问和管理他们的外部帐户，而不需要他们进入账户登录认证
+
+
+3.Addre">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/pre_posts/iOS-Frameworks.html"/>
+
+
+
+
+
+  <title>iOS Frameworks 一览 | iBiNCoder's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">iBiNCoder's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+	<h1 class="post-title" itemprop="name headline">iOS Frameworks 一览</h1>
+
+
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+        
+          <h4 id="1-Accelerate-framework"><a href="#1-Accelerate-framework" class="headerlink" title="1.Accelerate.framework"></a>1.<a href="https://developer.apple.com/reference/accelerate" target="_blank" rel="external">Accelerate.framework</a></h4><blockquote>
+<ul>
+<li>高性能的做大规模的数学计算和图像计算的库</li>
+<li>主要用来做数字信号处理、图像处理相关的向量、矩阵运算。</li>
+<li>图像可以认为是由向量或者矩阵数据构成的，Accelerate里提供了高效的数学运算API，能方便我们对图像做各种各样的处理</li>
+</ul>
+</blockquote>
+<h4 id="2-Accounts-framework"><a href="#2-Accounts-framework" class="headerlink" title="2.Accounts.framework"></a>2.<a href="https://developer.apple.com/reference/accounts" target="_blank" rel="external">Accounts.framework</a></h4><blockquote>
+<ul>
+<li>帮助用户访问和管理他们的外部帐户，而不需要他们进入账户登录认证</li>
+</ul>
+</blockquote>
+<h4 id="3-AddressBook-framework、AddressBookUI-framework"><a href="#3-AddressBook-framework、AddressBookUI-framework" class="headerlink" title="3.AddressBook.framework、AddressBookUI.framework"></a>3.<a href="https://developer.apple.com/reference/addressbook" target="_blank" rel="external">AddressBook.framework</a>、<a href="https://developer.apple.com/reference/addressbookUI" target="_blank" rel="external">AddressBookUI.framework</a></h4><blockquote>
+<ul>
+<li>使用这两个框架我们可以在程序中访问并显示iPhone数据库中的联系人信息</li>
+</ul>
+</blockquote>
+<h4 id="4-AdSupport-framework-https-developer-apple-com-reference-adsupport"><a href="#4-AdSupport-framework-https-developer-apple-com-reference-adsupport" class="headerlink" title="4.[AdSupport.framework]https://developer.apple.com/reference/adsupport()"></a>4.[AdSupport.framework]<a href="https://developer.apple.com/reference/adsupport(" target="_blank" rel="external">https://developer.apple.com/reference/adsupport(</a>)</h4><h4 id="5-AssetsLibrary"><a href="#5-AssetsLibrary" class="headerlink" title="5.AssetsLibrary"></a>5.AssetsLibrary</h4><h4 id="6-AudioToolbox"><a href="#6-AudioToolbox" class="headerlink" title="6.AudioToolbox"></a>6.AudioToolbox</h4><h4 id="7-AudioUnit"><a href="#7-AudioUnit" class="headerlink" title="7.AudioUnit"></a>7.AudioUnit</h4><h4 id="8-AVFoundation"><a href="#8-AVFoundation" class="headerlink" title="8.AVFoundation"></a>8.AVFoundation</h4><h4 id="9-AVKit"><a href="#9-AVKit" class="headerlink" title="9.AVKit"></a>9.AVKit</h4><h4 id="10-CallKit"><a href="#10-CallKit" class="headerlink" title="10.CallKit"></a>10.CallKit</h4><h4 id="11-CFNetwork"><a href="#11-CFNetwork" class="headerlink" title="11.CFNetwork"></a>11.CFNetwork</h4><h4 id="12-CloudKit"><a href="#12-CloudKit" class="headerlink" title="12.CloudKit"></a>12.CloudKit</h4><h4 id="13-Contacts"><a href="#13-Contacts" class="headerlink" title="13.Contacts"></a>13.Contacts</h4><pre><code>ContactsUI
+</code></pre><h4 id="14-CoreAudio"><a href="#14-CoreAudio" class="headerlink" title="14.CoreAudio"></a>14.CoreAudio</h4><h4 id="15-CoreAudioKit"><a href="#15-CoreAudioKit" class="headerlink" title="15.CoreAudioKit"></a>15.CoreAudioKit</h4><h4 id="16-CoreBluetooth"><a href="#16-CoreBluetooth" class="headerlink" title="16.CoreBluetooth"></a>16.CoreBluetooth</h4><h4 id="17-CoreData"><a href="#17-CoreData" class="headerlink" title="17.CoreData"></a>17.CoreData</h4><h4 id="18-CoreFoundation"><a href="#18-CoreFoundation" class="headerlink" title="18.CoreFoundation"></a>18.CoreFoundation</h4><h4 id="19-CoreGraphics"><a href="#19-CoreGraphics" class="headerlink" title="19.CoreGraphics"></a>19.CoreGraphics</h4><h4 id="20-CoreImage"><a href="#20-CoreImage" class="headerlink" title="20.CoreImage"></a>20.CoreImage</h4><h4 id="21-CoreLocation"><a href="#21-CoreLocation" class="headerlink" title="21.CoreLocation"></a>21.CoreLocation</h4><h4 id="22-CoreMedia"><a href="#22-CoreMedia" class="headerlink" title="22.CoreMedia"></a>22.CoreMedia</h4><h4 id="23-CoreMIDI"><a href="#23-CoreMIDI" class="headerlink" title="23.CoreMIDI"></a>23.CoreMIDI</h4><h4 id="24-CoreMotion"><a href="#24-CoreMotion" class="headerlink" title="24.CoreMotion"></a>24.CoreMotion</h4><h4 id="25-CoreSpotlight"><a href="#25-CoreSpotlight" class="headerlink" title="25.CoreSpotlight"></a>25.CoreSpotlight</h4><h4 id="26-CoreTelephony"><a href="#26-CoreTelephony" class="headerlink" title="26.CoreTelephony"></a>26.CoreTelephony</h4><h4 id="27-CoreText"><a href="#27-CoreText" class="headerlink" title="27.CoreText"></a>27.CoreText</h4><h4 id="28-CoreVideo"><a href="#28-CoreVideo" class="headerlink" title="28.CoreVideo"></a>28.CoreVideo</h4><h4 id="29-Eventkit-EventkitUI"><a href="#29-Eventkit-EventkitUI" class="headerlink" title="29.Eventkit EventkitUI"></a>29.Eventkit EventkitUI</h4><h4 id="30-ExternalAccessory"><a href="#30-ExternalAccessory" class="headerlink" title="30.ExternalAccessory"></a>30.ExternalAccessory</h4><h4 id="31-Foundation"><a href="#31-Foundation" class="headerlink" title="31.Foundation"></a>31.Foundation</h4><h4 id="32-GameController"><a href="#32-GameController" class="headerlink" title="32.GameController"></a>32.GameController</h4><h4 id="33-Gamekit"><a href="#33-Gamekit" class="headerlink" title="33.Gamekit"></a>33.Gamekit</h4><h4 id="34-Gameplaykit"><a href="#34-Gameplaykit" class="headerlink" title="34.Gameplaykit"></a>34.Gameplaykit</h4><h4 id="35-GLkit"><a href="#35-GLkit" class="headerlink" title="35.GLkit"></a>35.GLkit</h4><h4 id="36-GSS"><a href="#36-GSS" class="headerlink" title="36.GSS"></a>36.GSS</h4><h4 id="37-HealthKit-HealthKitUI"><a href="#37-HealthKit-HealthKitUI" class="headerlink" title="37.HealthKit HealthKitUI"></a>37.HealthKit HealthKitUI</h4><h4 id="38"><a href="#38" class="headerlink" title="38."></a>38.</h4><h4 id="39"><a href="#39" class="headerlink" title="39."></a>39.</h4><h4 id="40"><a href="#40" class="headerlink" title="40."></a>40.</h4><p><a href="http://www.jianshu.com/p/e7fc525f342d" target="_blank" rel="external">http://www.jianshu.com/p/e7fc525f342d</a></p>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">iBiNCoder</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Accelerate-framework"><span class="nav-number">1.</span> <span class="nav-text">1.Accelerate.framework</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Accounts-framework"><span class="nav-number">2.</span> <span class="nav-text">2.Accounts.framework</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-AddressBook-framework、AddressBookUI-framework"><span class="nav-number">3.</span> <span class="nav-text">3.AddressBook.framework、AddressBookUI.framework</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-AdSupport-framework-https-developer-apple-com-reference-adsupport"><span class="nav-number">4.</span> <span class="nav-text">4.[AdSupport.framework]https://developer.apple.com/reference/adsupport()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-AssetsLibrary"><span class="nav-number">5.</span> <span class="nav-text">5.AssetsLibrary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-AudioToolbox"><span class="nav-number">6.</span> <span class="nav-text">6.AudioToolbox</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-AudioUnit"><span class="nav-number">7.</span> <span class="nav-text">7.AudioUnit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-AVFoundation"><span class="nav-number">8.</span> <span class="nav-text">8.AVFoundation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-AVKit"><span class="nav-number">9.</span> <span class="nav-text">9.AVKit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-CallKit"><span class="nav-number">10.</span> <span class="nav-text">10.CallKit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-CFNetwork"><span class="nav-number">11.</span> <span class="nav-text">11.CFNetwork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-CloudKit"><span class="nav-number">12.</span> <span class="nav-text">12.CloudKit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-Contacts"><span class="nav-number">13.</span> <span class="nav-text">13.Contacts</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-CoreAudio"><span class="nav-number">14.</span> <span class="nav-text">14.CoreAudio</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-CoreAudioKit"><span class="nav-number">15.</span> <span class="nav-text">15.CoreAudioKit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-CoreBluetooth"><span class="nav-number">16.</span> <span class="nav-text">16.CoreBluetooth</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17-CoreData"><span class="nav-number">17.</span> <span class="nav-text">17.CoreData</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#18-CoreFoundation"><span class="nav-number">18.</span> <span class="nav-text">18.CoreFoundation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#19-CoreGraphics"><span class="nav-number">19.</span> <span class="nav-text">19.CoreGraphics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#20-CoreImage"><span class="nav-number">20.</span> <span class="nav-text">20.CoreImage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#21-CoreLocation"><span class="nav-number">21.</span> <span class="nav-text">21.CoreLocation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#22-CoreMedia"><span class="nav-number">22.</span> <span class="nav-text">22.CoreMedia</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#23-CoreMIDI"><span class="nav-number">23.</span> <span class="nav-text">23.CoreMIDI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#24-CoreMotion"><span class="nav-number">24.</span> <span class="nav-text">24.CoreMotion</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#25-CoreSpotlight"><span class="nav-number">25.</span> <span class="nav-text">25.CoreSpotlight</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#26-CoreTelephony"><span class="nav-number">26.</span> <span class="nav-text">26.CoreTelephony</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#27-CoreText"><span class="nav-number">27.</span> <span class="nav-text">27.CoreText</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#28-CoreVideo"><span class="nav-number">28.</span> <span class="nav-text">28.CoreVideo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#29-Eventkit-EventkitUI"><span class="nav-number">29.</span> <span class="nav-text">29.Eventkit EventkitUI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#30-ExternalAccessory"><span class="nav-number">30.</span> <span class="nav-text">30.ExternalAccessory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#31-Foundation"><span class="nav-number">31.</span> <span class="nav-text">31.Foundation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#32-GameController"><span class="nav-number">32.</span> <span class="nav-text">32.GameController</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#33-Gamekit"><span class="nav-number">33.</span> <span class="nav-text">33.Gamekit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#34-Gameplaykit"><span class="nav-number">34.</span> <span class="nav-text">34.Gameplaykit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#35-GLkit"><span class="nav-number">35.</span> <span class="nav-text">35.GLkit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#36-GSS"><span class="nav-number">36.</span> <span class="nav-text">36.GSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#37-HealthKit-HealthKitUI"><span class="nav-number">37.</span> <span class="nav-text">37.HealthKit HealthKitUI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#38"><span class="nav-number">38.</span> <span class="nav-text">38.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#39"><span class="nav-number">39.</span> <span class="nav-text">39.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#40"><span class="nav-number">40.</span> <span class="nav-text">40.</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iBiNCoder</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
